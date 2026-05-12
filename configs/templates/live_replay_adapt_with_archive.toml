@@ -1,0 +1,85 @@
+# Live Phase-6.1 replay + monitoring + bias correction.
+#
+# This is the safest way to demonstrate online adaptation. It replays an old CSV
+# as if it were arriving live, runs POD-Kalman state estimation and monitoring,
+# then learns a bounded additive forecast-bias correction from matched forecast
+# residuals. The saved ROM is NOT modified.
+
+[stream]
+type = "csv_replay"
+path = "examples/end_to_end_thermal_loop_study/thermal_loop_data.csv"
+chunk_size = 1
+
+[data]
+time_col = "time"
+case_col = "case_id"
+case_id = "case_001"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+measurement_cols = ["TP1", "TP3", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[model]
+# Train this offline first, for example with:
+#   dmdc pod-dmdc --config configs/templates/pod_dmdc_validation.toml
+path = "outputs/pod_dmdc/pod_dmdc_model.pkl"
+
+[estimator]
+process_noise = 1.0e-6
+measurement_noise = 1.0e-3
+initial_covariance = 1.0
+
+[forecast]
+horizons_seconds = [5.0, 10.0, 30.0]
+# Required for ordinary discrete POD-DMDc models. Adaptive/continuous models use physical horizons directly.
+discrete_dt_seconds = 0.5
+
+[monitor]
+residual_abs_threshold = 5.0
+innovation_abs_threshold = 5.0
+innovation_norm_threshold = 12.0
+covariance_trace_threshold = 10.0
+forecast_match_tolerance_seconds = 0.3
+operating_ranges = {q_heater = [0.0, 120.0], T_amb = [280.0, 330.0], h_amb = [0.0, 50.0]}
+
+[live_adaptation]
+enabled = true
+# "state_bias" learns one offset per state.
+# "horizon_state_bias" learns one offset per state and forecast horizon.
+method = "horizon_state_bias"
+
+[live_adaptation.bias]
+learning_rate = 0.01
+max_abs_bias = 10.0
+max_update_step = 0.25
+update_only_when_trust_above = 0.70
+skip_when_outside_training_envelope = true
+skip_on_alert_severity = ["critical"]
+clip_residual_abs = 20.0
+apply_bias_to_forecasts = true
+
+[live]
+max_samples = 200
+outdir = "outputs/live_adaptation_replay"
+save_every_batch = false
+
+
+# Live Phase-6.2/6.3 optional long-term archive.
+# This is off in the basic template, but this example turns it on so that the
+# live adaptation run is archived, summarized, and quicklook plots are created.
+[live_archive]
+enabled = true
+root = "live_archive"
+format = "csv"  # use "parquet" with python -m pip install -e '.[parquet]'
+compression = "zstd"
+write_csv_mirrors = false
+strict_format = false
+flush_rows = 10000
+flush_seconds = 30
+
+[summaries]
+enabled = true
+windows_seconds = [60, 300, 3600]
+
+[quicklooks]
+enabled = true
+window_label = "60s"

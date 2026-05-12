@@ -1,0 +1,21 @@
+# Tail a CSV file that another process is appending to.
+# This is the first real live-loop mode. Keep max_polls during testing;
+# remove it or increase it for an open-ended operator run.
+
+[stream]
+type = "csv_tail"
+path = "live_data/current_loop_log.csv"
+poll_seconds = 0.5
+start_at_end = false
+
+[data]
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[live]
+max_polls = 20
+buffer_seconds = 300.0
+save_every_batch = true
+outdir = "outputs/live_tail_example"

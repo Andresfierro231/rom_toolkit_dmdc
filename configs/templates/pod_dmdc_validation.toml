@@ -1,0 +1,25 @@
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[split]
+train_cases = ["run_001", "run_002"]
+test_cases = ["run_003"]
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+dmdc_rank = "full"
+
+[validation]
+forecast_horizons = [1, 2, 5, 10]
+
+[output]
+outdir = "outputs/template_pod_dmdc_validation"
+plots = true

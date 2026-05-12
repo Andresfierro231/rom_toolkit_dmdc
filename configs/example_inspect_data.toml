@@ -1,0 +1,9 @@
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[output]
+outdir = "outputs/example_data_inspection"

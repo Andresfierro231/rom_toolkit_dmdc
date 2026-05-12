@@ -1,0 +1,111 @@
+# Central config template: one file that documents the data source, column schema,
+# offline ROM settings, live settings, archive settings, and dashboard behavior.
+# You do not have to use every section immediately; commands only read the
+# sections they need.
+
+[importer]
+type = "auto"
+source = "data/raw/current_loop_export.csv"
+output_format = "parquet"
+rename_col = ["TC01=TP1", "TC02=TP2", "Heater_W=q_heater"]
+
+[data]
+path = "data/processed/current_loop.parquet"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+measurement_cols = ["TP1", "TP3", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[units]
+TP1 = "K"
+TP2 = "K"
+TP3 = "K"
+TP4 = "K"
+TP5 = "K"
+TP6 = "K"
+massFlowRate = "kg/s"
+q_heater = "W"
+T_amb = "K"
+h_amb = "W/m^2-K"
+
+[split]
+strategy = "explicit_case_lists"
+train_cases = ["salt_test_1", "salt_test_2", "salt_test_3"]
+test_cases = ["salt_test_4"]
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+type = "pod_dmdc"
+dmdc_rank = "full"
+n_delays = 1
+
+[adaptive]
+alpha = 1.0e-8
+
+[validation]
+forecast_horizons = [1, 5, 10, 25, 50]
+
+[stream]
+type = "csv_tail"
+path = "live_data/current_loop_log.csv"
+poll_seconds = 0.5
+chunk_size = 1
+start_at_end = true
+
+[forecast]
+horizons_seconds = [5, 10, 30, 60]
+discrete_dt_seconds = 0.5
+
+[estimator]
+measurement_cols = ["TP1", "TP3", "TP6", "massFlowRate"]
+process_noise = 1.0e-6
+measurement_noise = 1.0e-3
+initial_covariance = 1.0
+
+[monitor]
+residual_abs_threshold = 5.0
+innovation_abs_threshold = 5.0
+forecast_match_tolerance_seconds = 0.5
+operating_ranges = { q_heater = [0.0, 120.0], T_amb = [280.0, 330.0], h_amb = [0.0, 50.0] }
+
+[live_adaptation]
+enabled = true
+method = "horizon_state_bias"
+
+[live_adaptation.bias]
+learning_rate = 0.01
+max_abs_bias = 10.0
+max_update_step = 0.25
+update_only_when_trust_above = 0.70
+skip_when_outside_training_envelope = true
+clip_residual_abs = 20.0
+
+[live_archive]
+enabled = true
+root = "live_archive"
+format = "parquet"
+compression = "zstd"
+flush_rows = 10000
+flush_seconds = 30.0
+
+[summaries]
+enabled = true
+windows_seconds = [60, 300, 3600]
+
+[dashboard]
+mode = "auto"
+view = "executive"
+archive_root = "live_archive"
+window_label = "60s"
+refresh_seconds = 2.0
+
+[output]
+imported_data = "data/processed/current_loop.parquet"
+outdir = "outputs/current_loop_study"
+live_adaptation_outdir = "outputs/live_adaptation"
+plots = true

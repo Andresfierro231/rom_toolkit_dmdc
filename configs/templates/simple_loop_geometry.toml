@@ -1,0 +1,10 @@
+description = "Simple thermal-loop display geometry for dashboard operator mode. Edit positions for your actual loop."
+
+[positions_m]
+TP1 = 0.0
+TP2 = 0.4
+TP3 = 0.9
+TP4 = 1.5
+TP5 = 2.1
+TP6 = 2.8
+massFlowRate = 3.2

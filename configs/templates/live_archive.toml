@@ -1,0 +1,15 @@
+# Live Phase-6.2 archive configuration.
+# Use this after a live run has created outputs/live_adaptation_replay.
+
+[live_archive]
+# Folder created by live-replay-adapt/live-run-adapt.
+run_dir = "outputs/live_adaptation_replay"
+# Long-term archive root that may contain many runs.
+root = "live_archive"
+# Use parquet for serious runs; csv is fine for demos/tests.
+format = "parquet"
+compression = "zstd"
+write_csv_mirrors = false
+strict_format = false
+flush_rows = 10000
+flush_seconds = 30

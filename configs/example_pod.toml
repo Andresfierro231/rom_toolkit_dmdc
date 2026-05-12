@@ -1,0 +1,13 @@
+[data]
+path = "data/example_timeseries.csv"
+time_col = "time"
+state_cols = ["x1", "x2"]
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[output]
+outdir = "outputs/example_pod"
+plots = true

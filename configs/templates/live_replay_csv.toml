@@ -1,0 +1,20 @@
+# Replay an existing CSV as if it were arriving live.
+# Use this before connecting a real DAQ/logger.
+
+[stream]
+type = "csv_replay"
+path = "examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv"
+chunk_size = 5
+
+[data]
+time_col = "time"
+case_col = "case_id"
+case_id = "salt_test_1"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[live]
+max_samples = 50
+buffer_seconds = 120.0
+save_every_batch = false
+outdir = "outputs/live_replay_example"

@@ -1,0 +1,50 @@
+# One-command local workflow template.
+# Copy this file to studies/<study>/study_config.toml and edit the FIXME values.
+# Then run:
+#   dmdc campaign --config studies/<study>/study_config.toml --dry-run
+#   dmdc campaign --config studies/<study>/study_config.toml --steps import inspect compare
+
+[campaign]
+name = "local_rom_campaign"
+root = "outputs/campaigns"
+steps = ["import", "inspect", "compare"]
+
+[execution]
+mode = "local"
+max_workers = "auto"
+
+[importer]
+source = "FIXME/path/to/raw_data.csv"
+type = "csv" # csv, excel, parquet, folder, labview_daq, epics
+out = "data/processed/canonical_loop_data.parquet"
+output_format = "parquet"
+pattern = "*.csv"
+case_from_filename = false
+
+[data]
+path = "data/processed/canonical_loop_data.parquet"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[compare]
+models = ["persistence", "mean", "adaptive_dmdc", "ridge_dmdc", "pod_dmdc"]
+outdir = "outputs/compare"
+
+[split]
+strategy = "by_case_fraction"
+train_fraction = 0.7
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+dmdc_rank = "full"
+
+[output]
+root = "outputs/local_rom_campaign"
+inspection_outdir = "outputs/inspection"
+plots = true

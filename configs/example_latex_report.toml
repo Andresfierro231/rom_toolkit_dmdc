@@ -1,0 +1,8 @@
+# First run a workflow, for example:
+#   dmdc compare --config configs/example_compare_models.toml
+# Then generate a LaTeX report:
+#   dmdc report --run outputs/example_model_comparison
+[report]
+run = "outputs/example_model_comparison"
+format = "latex"
+compile_pdf = false

@@ -1,0 +1,8 @@
+# The benchmark command currently uses CLI flags directly. This file documents
+# recommended values for local smoke tests and larger workstation tests.
+[benchmark_archive]
+n_rows_smoke = 10000
+n_rows_workstation = 1000000
+n_states = 32
+format = "parquet"
+windows_seconds = [60, 300, 3600]

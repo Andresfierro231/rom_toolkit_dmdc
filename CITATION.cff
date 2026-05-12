@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software in research, please cite it using the metadata below."
+title: "DMDc Analysis: Reduced-Order Modeling and Live Monitoring Toolkit"
+version: "0.1.0-alpha"
+date-released: "2026-05-12"
+authors:
+  - family-names: "Fierro"
+    given-names: "Andres"
+abstract: >
+  A research-grade ROM and live monitoring toolkit for DMD/DMDc/POD workflows,
+  with live replay, dashboarding, archive support, and model registry scaffolding.
+  This alpha release is intended for research and development workflows and is
+  not yet field-validated on live hardware.
+keywords:
+  - dynamic mode decomposition
+  - DMDc
+  - reduced-order modeling
+  - POD
+  - digital twin
+  - thermal hydraulics
+license: MIT
+repository-code: "https://github.com/REPLACE_WITH_OWNER/REPLACE_WITH_REPO"

@@ -1,0 +1,38 @@
+# Multi-case workflow config. Run with:
+#   dmdc workflow --config configs/example_workflow.toml
+#
+# Each case gets its own output folder under output.root unless outdir is explicitly supplied.
+
+name = "example_multicase_workflow"
+
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[model]
+rank = "full"
+n_delays = 1
+
+[preprocessing]
+center = false
+scale = false
+
+[output]
+root = "outputs/configured_cases"
+plots = true
+
+[[cases]]
+name = "all_cases_together"
+# No case_id means one model fit across all trajectories, while respecting case boundaries.
+
+[[cases]]
+name = "only_run_001"
+case_id = "run_001"
+
+[[cases]]
+name = "only_run_002_custom_folder"
+case_id = "run_002"
+outdir = "outputs/my_custom_folder/run_002"

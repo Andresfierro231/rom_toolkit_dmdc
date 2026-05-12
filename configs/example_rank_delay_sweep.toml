@@ -1,0 +1,31 @@
+# Phase 8 example: compare model/rank/delay choices on held-out cases.
+# Run:
+#   dmdc sweep --config configs/example_rank_delay_sweep.toml
+
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[split]
+train_cases = ["run_001", "run_002"]
+test_cases = ["run_003"]
+
+[sweep]
+models = ["persistence", "dmdc", "pod_dmdc", "pod_ml_ridge"]
+pod_ranks = ["full", 0.999]
+dmdc_ranks = ["full"]
+n_delays = [1, 2]
+outdir = "outputs/example_rank_delay_sweep"
+
+[pod]
+center = true
+scale = false
+
+[output]
+plots = true
+
+[report]
+enabled = true

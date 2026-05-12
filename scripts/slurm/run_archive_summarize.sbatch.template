@@ -1,0 +1,15 @@
+#!/bin/bash
+# Incomplete Slurm template for archive summaries/quicklooks/schema validation.
+#SBATCH -J dmdc_archive_summary
+#SBATCH -t 01:00:00
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=1
+#SBATCH -o logs/%j.out
+#SBATCH -e logs/%j.err
+# FIXME: #SBATCH -A YOUR_ACCOUNT
+# FIXME: #SBATCH -p YOUR_PARTITION
+set -euo pipefail
+CONFIG=${1:-configs/templates/live_archive_summaries.toml}
+python -m dmdc.cli archive-summarize --config "$CONFIG"
+python -m dmdc.cli archive-quicklook --config "$CONFIG"
+python -m dmdc.cli validate-archive-schema --config "$CONFIG"

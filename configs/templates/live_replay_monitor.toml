@@ -1,0 +1,46 @@
+# Live Phase-4 replay monitoring example.
+# Replay an existing CSV as if it were live, estimate the current state with a
+# POD-Kalman filter, forecast ahead, compute forecast residuals, raise alerts,
+# and write an advisory trust score.
+
+[stream]
+type = "csv_replay"
+path = "examples/end_to_end_thermal_loop_study/thermal_loop_data.csv"
+chunk_size = 1
+
+[data]
+time_col = "time"
+case_col = "case_id"
+case_id = "case_001"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+# measurement_cols can be a sparse subset of state_cols if not every state is measured live.
+measurement_cols = ["TP1", "TP3", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[model]
+# Train this offline first, for example with `dmdc pod-dmdc --config ...`.
+path = "outputs/pod_dmdc/pod_dmdc_model.pkl"
+
+[estimator]
+process_noise = 1.0e-6
+measurement_noise = 1.0e-3
+initial_covariance = 1.0
+
+[forecast]
+horizons_seconds = [5.0, 10.0, 30.0]
+# Required for discrete POD-DMDc models. Adaptive/continuous models use physical horizons directly.
+discrete_dt_seconds = 0.5
+
+[monitor]
+residual_abs_threshold = 5.0
+innovation_abs_threshold = 5.0
+innovation_norm_threshold = 12.0
+covariance_trace_threshold = 10.0
+forecast_match_tolerance_seconds = 0.3
+# These are example operating ranges. Use ranges from your training/validation report.
+operating_ranges = {q_heater = [0.0, 120.0], T_amb = [280.0, 330.0], h_amb = [0.0, 50.0]}
+
+[live]
+max_samples = 200
+outdir = "outputs/live_monitoring_replay"
+save_every_batch = false

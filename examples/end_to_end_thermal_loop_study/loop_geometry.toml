@@ -1,0 +1,12 @@
+description = "Synthetic one-dimensional positions around a natural-circulation loop."
+[positions_m]
+TP1 = 0.0
+TP2 = 0.7
+TP3 = 1.4
+TP4 = 2.3
+TP5 = 3.2
+TP6 = 4.0
+TW1 = 0.9
+TW2 = 2.5
+TW3 = 3.4
+massFlowRate = 4.1

@@ -1,0 +1,40 @@
+# Live Phase-4 CSV-tail monitoring example.
+# Use this when a local DAQ/logger keeps appending rows to a CSV file.
+
+[stream]
+type = "csv_tail"
+path = "live_data/current_loop_log.csv"
+poll_seconds = 0.5
+start_at_end = false
+
+[data]
+time_col = "time"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+measurement_cols = ["TP1", "TP3", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[model]
+path = "outputs/best_model/pod_dmdc_model.pkl"
+
+[estimator]
+process_noise = 1.0e-6
+measurement_noise = 1.0e-3
+initial_covariance = 1.0
+
+[forecast]
+horizons_seconds = [5.0, 10.0, 30.0, 60.0]
+discrete_dt_seconds = 0.5
+
+[monitor]
+residual_abs_threshold = 5.0
+innovation_abs_threshold = 5.0
+innovation_norm_threshold = 12.0
+covariance_trace_threshold = 10.0
+operating_ranges = {q_heater = [0.0, 120.0], T_amb = [280.0, 330.0], h_amb = [0.0, 50.0]}
+
+[live]
+buffer_seconds = 300.0
+outdir = "outputs/live_monitoring_tail"
+save_every_batch = true
+# While testing tail mode, set max_polls. Remove for open-ended use.
+max_polls = 20

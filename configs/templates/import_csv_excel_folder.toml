@@ -1,0 +1,34 @@
+# Import current/archived data into a tidy table that all ROM commands can use.
+# Run:
+#   dmdc import-data --config configs/templates/import_csv_excel_folder.toml
+# Then set [data].path in your study config to the generated output path.
+
+[importer]
+# Options: auto, csv, excel, parquet, folder, labview_daq, epics
+# auto chooses by file extension or folder status.
+type = "auto"
+source = "data/raw/current_loop_export.csv"
+output_format = "parquet"
+# For Excel, set a sheet name or number:
+# sheet = "Sheet1"
+# For folder/LabVIEW/DAQ chunk imports:
+# pattern = "*.csv"
+# case_from_filename = true
+# max_files = 100
+
+# Optional mapping file from instrument names to canonical names.
+# column_map = "configs/templates/column_map_example.toml"
+# Or inline renames:
+rename_col = ["TC01=TP1", "TC02=TP2", "Heater_W=q_heater"]
+
+[output]
+imported_data = "data/processed/current_loop.parquet"
+format = "parquet"
+
+[data]
+# These names are not required for import itself, but documenting them here
+# makes this file usable as the central study config after import.
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]

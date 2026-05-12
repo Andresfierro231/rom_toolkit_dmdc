@@ -1,0 +1,86 @@
+# Central campaign config template. Copy to studies/<study>/study_config.toml and edit.
+[campaign]
+name = "simple_loop_campaign"
+root = "outputs/campaigns"
+steps = ["import", "inspect", "compare", "live_replay_adapt", "archive_run", "archive_summarize", "archive_schema", "dashboard", "operator_report"]
+[execution]
+mode = "local" # local is default; hpc currently writes a plan only until Slurm templates are filled in.
+max_workers = "auto"
+[importer]
+source = "FIXME/path/to/raw.csv"
+type = "csv"
+out = "data/processed/simple_loop.parquet"
+output_format = "parquet"
+pattern = "*.csv"
+case_from_filename = false
+[data]
+path = "data/processed/simple_loop.parquet"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+[pod]
+rank = 0.999
+center = true
+scale = false
+[model]
+# Prefer registry_name/stage for live deployment. Use path for quick local testing.
+# path = "outputs/pod_dmdc/pod_dmdc_model.pkl"
+registry_name = "simple_loop_pod_dmdc_v1"
+stage = "production"
+registry_root = "models/registry"
+dmdc_rank = "full"
+[compare]
+models = ["persistence", "mean", "adaptive_dmdc", "dmdc", "ridge_dmdc", "pod_dmdc"]
+outdir = "outputs/compare"
+[split]
+strategy = "by_case_fraction"
+train_fraction = 0.7
+[forecast]
+horizons_seconds = [5, 10, 30, 60]
+discrete_dt_seconds = 1.0
+[live]
+stream_type = "csv_replay"
+path = "data/processed/simple_loop.parquet"
+outdir = "outputs/live_adaptation_replay"
+chunk_size = 1
+max_samples = 200
+save_every_batch = false
+[estimator]
+measurement_cols = ["TP1", "TP3", "TP6", "massFlowRate"]
+process_noise = 1.0e-6
+measurement_noise = 1.0e-3
+initial_covariance = 1.0
+[monitor]
+residual_abs_threshold = 5.0
+innovation_abs_threshold = 5.0
+forecast_match_tolerance_seconds = 0.5
+[live_adaptation]
+enabled = true
+method = "horizon_state_bias"
+[live_adaptation.bias]
+learning_rate = 0.01
+max_abs_bias = 10.0
+max_update_step = 0.25
+update_only_when_trust_above = 0.7
+[live_archive]
+enabled = true
+root = "live_archive"
+format = "parquet"
+compression = "zstd"
+write_csv_mirrors = false
+strict_format = false
+[summaries]
+windows_seconds = [60, 300, 3600]
+[quicklooks]
+window_label = "60s"
+[dashboard]
+mode = "auto"
+view = "operator"
+window_label = "60s"
+[output]
+root = "outputs/simple_loop_campaign"
+plots = true
+inspection_outdir = "outputs/inspection"
+comparison_outdir = "outputs/compare"
+operator_report_outdir = "outputs/operator_report"

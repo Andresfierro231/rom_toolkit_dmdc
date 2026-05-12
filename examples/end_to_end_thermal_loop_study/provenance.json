@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-05-12T16:26:57.019950+00:00",
+  "package": "dmdc-analysis",
+  "package_version": "0.1.0+local",
+  "python_version": "3.13.5 (main, Jun 25 2025, 18:55:22) [GCC 14.2.0]",
+  "platform": "Linux-4.4.0-x86_64-with-glibc2.41",
+  "working_directory": "/mnt/data/rom_adaptive_work/dmdc-analysis",
+  "command": [
+    "/mnt/data/rom_adaptive_work/dmdc-analysis/src/dmdc/cli.py",
+    "make-thermal-loop-example",
+    "--outdir",
+    "examples/end_to_end_thermal_loop_study"
+  ],
+  "config_path": null,
+  "git_commit": null,
+  "environment": {
+    "PYTHONPATH": "src"
+  },
+  "extra": {
+    "command": "make-thermal-loop-example",
+    "created_files": {
+      "data": "examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv",
+      "geometry": "examples/end_to_end_thermal_loop_study/loop_geometry.toml",
+      "config": "examples/end_to_end_thermal_loop_study/thermal_loop_study.toml",
+      "readme": "examples/end_to_end_thermal_loop_study/README.md"
+    }
+  }
+}

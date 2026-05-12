@@ -1,0 +1,41 @@
+[data]
+path = "examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ['TP1', 'TP2', 'TP3', 'TP4', 'TP5', 'TP6', 'TW1', 'TW2', 'TW3', 'massFlowRate']
+input_cols = ['q_heater', 'T_amb', 'h_amb']
+
+[state_groups]
+fluid_temperatures = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6"]
+wall_temperatures = ["TW1", "TW2", "TW3"]
+flow = ["massFlowRate"]
+
+[split]
+strategy = "explicit_case_lists"
+train_cases = ["salt_test_1", "salt_test_2", "salt_test_3", "salt_test_4"]
+test_cases = ["salt_test_5_unseen_hot"]
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+type = "pod_dmdc"
+dmdc_rank = "full"
+
+[adaptive]
+alpha = 1.0e-8
+
+[compare]
+models = ["persistence", "mean", "adaptive_dmdc", "dmdc", "ridge_dmdc", "pod_dmdc"]
+
+[validation]
+forecast_horizons = [1, 5, 10, 25]
+
+[output]
+outdir = "examples/end_to_end_thermal_loop_study/outputs/validation"
+plots = true
+
+[geometry]
+path = "examples/end_to_end_thermal_loop_study/loop_geometry.toml"

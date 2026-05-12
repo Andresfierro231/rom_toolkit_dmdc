@@ -1,0 +1,20 @@
+# Minimal single-run config. Run with:
+#   dmdc fit --config configs/example_fit.toml
+
+[data]
+path = "data/example_timeseries.csv"
+time_col = "time"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[model]
+rank = "full"
+n_delays = 1
+
+[preprocessing]
+center = false
+scale = false
+
+[output]
+outdir = "outputs/config_example_fit"
+plots = true

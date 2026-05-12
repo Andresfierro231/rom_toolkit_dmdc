@@ -1,0 +1,19 @@
+# Live Phase-5 Streamlit dashboard template
+#
+# This dashboard is read-only. It points at an existing live output folder
+# produced by live-replay-monitor or live-run-monitor.
+#
+# Usage:
+#   dmdc live-dashboard --config configs/templates/live_dashboard.toml
+#
+# For CI or report automation without opening Streamlit:
+#   dmdc live-dashboard --config configs/templates/live_dashboard.toml --write-summary-only
+
+[dashboard]
+run_dir = "outputs/live_monitoring"
+refresh_seconds = 2.0
+# host = "0.0.0.0"
+# port = 8501
+
+# Set this true in automated jobs if you only want live_dashboard_summary.json.
+write_summary_only = false

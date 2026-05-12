@@ -1,0 +1,27 @@
+# Live Phase-6.4 archive dashboard template
+#
+# Use this after you have archived one or more live runs with:
+#   dmdc archive-run --run-dir outputs/live_adaptation_replay --archive-root live_archive
+# and created compact summaries/quicklooks with:
+#   dmdc archive-summarize --archive-root live_archive --windows-seconds 60 300 3600
+#   dmdc archive-quicklook --archive-root live_archive --window-label 60s
+#
+# Then launch:
+#   dmdc live-dashboard --config configs/templates/live_dashboard_archive.toml
+
+[dashboard]
+mode = "archive"
+archive_root = "live_archive"
+window_label = "60s"
+refresh_seconds = 5.0
+# write_summary_only = true  # useful for CI/smoke tests without launching Streamlit
+
+# Optional server options for workstation/LAN demos.
+# host = "0.0.0.0"
+# port = 8501
+
+[live_archive]
+root = "live_archive"
+
+[quicklooks]
+window_label = "60s"

@@ -1,0 +1,40 @@
+# Raw-column-name -> canonical-column-name mapping template.
+#
+# Edit this file before running `dmdc import-data --config study_config.toml`.
+# Canonical names should match [data].state_cols, [data].input_cols, [data].time_col,
+# and [data].case_col in study_config.toml.
+#
+# Examples below cover common SAM / experimental / DAQ naming patterns.
+# Delete mappings that do not apply and add your actual raw column names.
+
+[columns]
+# --- Time / case identity ---
+"Time" = "time"
+"time_s" = "time"
+"t" = "time"
+"run" = "case_id"
+"case" = "case_id"
+"run_id" = "case_id"
+
+# --- Fluid thermocouples / loop temperatures ---
+"TC01" = "TP1"
+"TC02" = "TP2"
+"TC03" = "TP3"
+"TC04" = "TP4"
+"TC05" = "TP5"
+"TC06" = "TP6"
+"temperature_probe_1" = "TP1"
+"temperature_probe_2" = "TP2"
+
+# --- Wall temperatures, if present ---
+"WallTC01" = "TW1"
+"WallTC02" = "TW2"
+"WallTC03" = "TW3"
+
+# --- Flow / inputs / operating conditions ---
+"MassFlowRate" = "massFlowRate"
+"mdot" = "massFlowRate"
+"heater_power_W" = "q_heater"
+"Heater_W" = "q_heater"
+"ambient_K" = "T_amb"
+"h_ambient" = "h_amb"

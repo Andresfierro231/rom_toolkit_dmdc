@@ -1,0 +1,24 @@
+# Optional EPICS process-variable snapshot importer.
+# Requires pyepics and network access to the control system.
+# Run:
+#   dmdc import-data --config configs/templates/import_epics_snapshot.toml
+
+[importer]
+type = "epics"
+output_format = "csv"
+
+[importer.epics_pvs]
+TP1 = "LOOP:TP1"
+TP2 = "LOOP:TP2"
+TP3 = "LOOP:TP3"
+massFlowRate = "LOOP:MDOT"
+q_heater = "LOOP:HEATER:POWER"
+T_amb = "LOOP:AMBIENT:TEMP"
+
+[output]
+imported_data = "data/processed/epics_snapshot.csv"
+
+[data]
+time_col = "received_utc"
+state_cols = ["TP1", "TP2", "TP3", "massFlowRate"]
+input_cols = ["q_heater", "T_amb"]

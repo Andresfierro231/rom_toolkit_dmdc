@@ -1,0 +1,71 @@
+# Full thermal-loop ROM study template.
+# Copy this file, edit [data].path and columns, then run the commands in docs/tutorials/end_to_end_thermal_loop_study.md.
+[data]
+path = "examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TW1", "TW2", "TW3", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[state_groups]
+fluid_temperatures = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6"]
+wall_temperatures = ["TW1", "TW2", "TW3"]
+flow = ["massFlowRate"]
+
+[units]
+TP1 = "K"
+TP2 = "K"
+TP3 = "K"
+TP4 = "K"
+TP5 = "K"
+TP6 = "K"
+TW1 = "K"
+TW2 = "K"
+TW3 = "K"
+massFlowRate = "kg/s"
+q_heater = "W"
+T_amb = "K"
+h_amb = "W/m^2-K"
+
+[split]
+strategy = "explicit_case_lists"
+train_cases = ["salt_test_1", "salt_test_2", "salt_test_3", "salt_test_4"]
+test_cases = ["salt_test_5_unseen_hot"]
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+type = "pod_dmdc"
+dmdc_rank = "full"
+
+[adaptive]
+# Used by dmdc adaptive-fit and adaptive_dmdc comparison models.
+alpha = 1.0e-8
+
+[compare]
+# adaptive_dmdc is included because SAM/experimental data often has nonuniform/adaptive dt.
+models = ["persistence", "mean", "adaptive_dmdc", "dmdc", "ridge_dmdc", "pod_dmdc", "pod_ml_ridge"]
+
+[validation]
+forecast_horizons = [1, 5, 10, 25, 50]
+
+[sweep]
+models = ["persistence", "adaptive_dmdc", "dmdc", "ridge_dmdc", "pod_dmdc"]
+pod_ranks = [2, 4, 6, 0.999]
+dmdc_ranks = ["full"]
+n_delays = [1, 2, 4]
+
+[geometry]
+path = "examples/end_to_end_thermal_loop_study/loop_geometry.toml"
+
+[output]
+outdir = "outputs/full_thermal_loop_study"
+plots = true
+
+[report]
+enabled = true
+format = "latex"
+compile_pdf = false

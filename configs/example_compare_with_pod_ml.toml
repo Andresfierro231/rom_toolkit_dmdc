@@ -1,0 +1,31 @@
+# Model comparison including optional POD-ML. POD-ML is not the core model;
+# compare it against DMDc and POD-DMDc before trusting it.
+
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[split]
+train_cases = ["run_001", "run_002"]
+test_cases = ["run_003"]
+
+[compare]
+models = ["persistence", "mean", "dmdc", "pod_dmdc", "pod_ml_ridge"]
+outdir = "outputs/compare_with_pod_ml"
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+dmdc_rank = "full"
+
+[output]
+plots = true
+
+[report]
+enabled = true

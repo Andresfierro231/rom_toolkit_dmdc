@@ -1,0 +1,14 @@
+# Live Phase-6.3 archive summary and quicklook configuration.
+
+[live_archive]
+root = "live_archive"
+
+[summaries]
+enabled = true
+windows_seconds = [60, 300, 3600]
+# For huge archives, set this during exploration, e.g. 100.
+# max_files_per_kind = 100
+
+[quicklooks]
+enabled = true
+window_label = "60s"

@@ -1,0 +1,22 @@
+# Sensor/state selection config. Run with:
+#   dmdc select-sensors --config configs/example_sensor_selection.toml
+
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+
+[model]
+rank = "full"
+
+[preprocessing]
+center = true
+scale = true
+
+[output]
+plots = true
+
+[sensor_selection]
+n_sensors = 2
+outdir = "outputs/config_sensor_selection"

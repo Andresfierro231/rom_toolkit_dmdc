@@ -1,0 +1,15 @@
+#!/bin/bash
+# Incomplete Slurm template for DMDc campaign runs.
+# Local workstation execution is the default. Fill in account/partition/env before use.
+#SBATCH -J dmdc_campaign
+#SBATCH -t 02:00:00
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=1
+#SBATCH -o logs/%j.out
+#SBATCH -e logs/%j.err
+# FIXME: #SBATCH -A YOUR_ACCOUNT
+# FIXME: #SBATCH -p YOUR_PARTITION
+set -euo pipefail
+# FIXME: module load python3; source /path/to/venv/bin/activate
+CONFIG=${1:-configs/templates/central_campaign_config.toml}
+python -m dmdc.cli campaign --config "$CONFIG"

@@ -1,0 +1,10 @@
+[columns]
+TC01 = "TP1"
+TC02 = "TP2"
+TC03 = "TP3"
+TC04 = "TP4"
+TC05 = "TP5"
+TC06 = "TP6"
+MassFlow_kg_s = "massFlowRate"
+Heater_W = "q_heater"
+Ambient_K = "T_amb"

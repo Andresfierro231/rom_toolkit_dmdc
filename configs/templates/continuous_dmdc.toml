@@ -1,0 +1,14 @@
+# Continuous-time conversion template. Use on one approximately uniform-dt case at a time.
+[data]
+path = "examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv"
+time_col = "time"
+case_col = "case_id"
+case_id = "salt_test_1"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TW1", "TW2", "TW3", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[model]
+rank = "full"
+
+[output]
+outdir = "outputs/template_continuous_dmdc"

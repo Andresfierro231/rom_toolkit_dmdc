@@ -1,0 +1,20 @@
+# Template for nonuniform/adaptive time-step data.
+# Use with:
+#   dmdc adaptive-fit --config configs/templates/adaptive_variable_dt_dmdc.toml
+
+[data]
+path = "data/example_multicase_timeseries.csv"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+
+[model]
+rank = "full"
+
+[adaptive]
+alpha = 1.0e-8
+
+[output]
+outdir = "outputs/adaptive_variable_dt_dmdc"
+plots = true

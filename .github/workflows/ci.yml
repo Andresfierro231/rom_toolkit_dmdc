@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,ml,dashboard,excel]"
+      - name: Run tests
+        run: pytest -q
+      - name: CLI help smoke tests
+        run: |
+          dmdc --help
+          dmdc guide
+          dmdc guide --markdown --out outputs/ci_command_guide.md
+          dmdc import-data --help
+          dmdc inspect-data --help
+          dmdc validate --help
+          dmdc compare --help
+          dmdc sweep --help
+          dmdc continuous --help
+          dmdc live-replay --help
+          dmdc live-replay-adapt --help
+          dmdc live-dashboard --help
+          dmdc live-operator-report --help
+          dmdc archive-run --help
+          dmdc archive-summarize --help
+          dmdc archive-quicklook --help
+          dmdc archive-search --help
+          dmdc validate-archive-schema --help
+          dmdc archive-context --help
+          dmdc model-register --help
+          dmdc model-list --help
+          dmdc model-promote --help
+          dmdc model-resolve --help
+          dmdc resources --help
+          dmdc campaign --help
+          dmdc benchmark-archive --help
+          dmdc hpc-plan --help
+
+      - name: Documentation navigation smoke tests
+        run: |
+          test -f WORKFLOWS.md
+          test -f COMMANDS.md
+          test -f docs/navigation/workflow_map.md
+          test -f docs/navigation/command_index.md
+          test -f examples/real_data_onboarding/README.md
+          grep -q "dmdc campaign" WORKFLOWS.md
+          grep -q "dmdc guide" README.md

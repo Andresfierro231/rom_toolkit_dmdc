@@ -1,0 +1,9 @@
+[dashboard]
+mode = "run"
+run_dir = "outputs/live_adaptation_replay"
+view = "operator"
+geometry = "configs/templates/simple_loop_geometry.toml"
+residual_warning_threshold = 2.0
+residual_critical_threshold = 5.0
+refresh_seconds = 2.0
+write_summary_only = false

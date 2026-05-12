@@ -1,0 +1,31 @@
+# Live Phase-2 CSV-tail + prediction config.
+#
+# Use this when a logger/DAQ process is appending rows to a CSV file.
+# During initial testing keep max_polls finite. For an operator run, remove it
+# and stop with Ctrl-C when desired.
+
+[stream]
+type = "csv_tail"
+path = "live_data/current_loop_log.csv"
+poll_seconds = 0.5
+start_at_end = false
+
+[data]
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "massFlowRate"]
+input_cols = ["q_heater", "T_amb", "h_amb"]
+
+[model]
+path = "outputs/adaptive_fit/adaptive_model.pkl"
+
+[forecast]
+horizons_seconds = [5.0, 10.0, 30.0, 60.0]
+# Set this when using ordinary discrete DMDc/POD-DMDc instead of adaptive DMDc.
+# discrete_dt_seconds = 0.5
+
+[live]
+max_polls = 20
+buffer_seconds = 300.0
+save_every_batch = true
+outdir = "outputs/live_tail_prediction_example"
