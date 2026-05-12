@@ -33,9 +33,14 @@ models/registry/
 *.db
 *.npz
 *.npy
+
+# Importanat data Privacy
 data/raw/
 data/private/
 data/processed/
+
+
+# Excluding images
 studies/
 *.log
 *.out
@@ -43,6 +48,7 @@ studies/
 *.pdf
 *.png
 *.svg
+
 !docs/**/*.png
 !examples/**/*.png
 slurm-*.out
