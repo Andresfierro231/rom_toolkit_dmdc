@@ -23,10 +23,18 @@ from .live_dashboard import (
 )
 
 
-def _table_md(df: pd.DataFrame, max_rows: int = 12) -> str:
-    if df.empty:
+def _table_md(df, max_rows: int = 20) -> str:
+    """Return a Markdown table, with a fallback if tabulate is unavailable."""
+    if df is None or df.empty:
         return "_No rows available._"
-    return df.head(max_rows).to_markdown(index=False)
+
+    shown = df.head(max_rows)
+
+    try:
+        return shown.to_markdown(index=False)
+    except ImportError:
+        # Fallback that avoids requiring pandas' optional tabulate dependency.
+        return "```text\n" + shown.to_string(index=False) + "\n```"
 
 
 def _write_html_from_markdown(markdown_text: str, html_path: Path) -> None:
