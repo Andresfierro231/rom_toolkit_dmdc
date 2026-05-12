@@ -35,7 +35,8 @@ models/registry/
 *.npy
 
 # Importanat data Privacy
-data/raw/
+data/raw/*
+!data/raw/.gitkeep
 data/private/
 data/processed/
 
