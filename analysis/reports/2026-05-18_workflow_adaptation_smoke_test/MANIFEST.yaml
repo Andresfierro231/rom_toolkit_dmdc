@@ -1,0 +1,93 @@
+campaign_id: 2026-05-18_workflow_adaptation_smoke_test
+created_at_local: '2026-05-18T12:03:28-05:00'
+research_question: Tailor the Codex research workflow to this repository.
+git:
+  repo_root: /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis
+  timestamp_local: '2026-05-18T12:03:28-05:00'
+  branch: main
+  commit: 007e798957e222724be818223cad2bf51c4fef19
+  commit_short: 007e798
+  dirty: true
+  status_short:
+  - M docs/workflows/README.md
+  - ?? .agents/
+  - ?? AGENTS.md
+  - ?? docs/workflows/research_provenance_workflow.md
+  - ?? requirements-codex-tools.txt
+  - ?? templates/
+  - ?? tools/
+  diff_name_status:
+  - "M\tdocs/workflows/README.md"
+inputs:
+  input_files:
+  - README.md
+  - WORKFLOWS.md
+  - COMMANDS.md
+  - pyproject.toml
+  - docs/workflows/README.md
+  - docs/workflows/campaign_workflows.md
+  - docs/navigation/workflow_map.md
+  - configs/templates/central_campaign_config.toml
+  - configs/templates/central_study_config.toml
+  - configs/templates/one_command_local_workflow.toml
+  - examples/real_data_onboarding/README.md
+  - examples/real_data_onboarding/study_config.toml
+  - scripts/workflows/run_campaign_local.sh
+  - src/dmdc/cli.py
+  - src/dmdc/campaign.py
+  - outputs/campaigns/local_rom_campaign/campaign_plan.md
+  - outputs/campaigns/local_rom_campaign/campaign_step_index.csv
+  validation_files:
+  - data/example_timeseries.csv
+  - data/example_multicase_timeseries.csv
+  - examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv
+  campaign_config: analysis/campaigns/2026-05-18_workflow_adaptation_smoke_test.yaml
+commands:
+- command: python -m pip install -r requirements-codex-tools.txt
+  status: succeeded
+  notes: Requirement already satisfied in the user site-packages path.
+- command: python -m py_compile $(find tools -name "*.py")
+  status: succeeded
+- command: python tools/studies/init_campaign.py --name workflow_adaptation_smoke_test --question "Tailor the Codex research workflow to this repository."
+  status: succeeded
+- command: .venv/bin/python -m dmdc.cli campaign --config configs/templates/one_command_local_workflow.toml --dry-run --steps inspect compare
+  status: succeeded
+  notes: Dry-run only. No analysis steps executed. Matplotlib emitted a writable-config warning and used a temporary cache directory.
+- command: python tools/provenance/collect_git_state.py --format yaml
+  status: succeeded
+scripts_used:
+- tools/studies/init_campaign.py
+- tools/provenance/collect_git_state.py
+- tools/reporting/make_checkpoint.py
+- src/dmdc/campaign.py
+- scripts/workflows/run_campaign_local.sh
+outputs:
+  report_dir: analysis/reports/2026-05-18_workflow_adaptation_smoke_test
+  runtime_rows_dir: analysis/runtime_rows
+  runtimes_master: analysis/runtimes_master.csv
+  figures: []
+  tables: []
+  reports:
+  - analysis/reports/2026-05-18_workflow_adaptation_smoke_test/CHECKPOINT.md
+  - analysis/reports/2026-05-18_workflow_adaptation_smoke_test/CHANGELOG.md
+  - analysis/reports/2026-05-18_workflow_adaptation_smoke_test/EXECUTIVE_SUMMARY.md
+  - analysis/reports/2026-05-18_workflow_adaptation_smoke_test/TECHNICAL_REPORT.md
+  other_outputs:
+  - AGENTS.md
+  - requirements-codex-tools.txt
+  - templates/campaign_template.yaml
+  - docs/workflows/research_provenance_workflow.md
+  - outputs/campaigns/local_rom_campaign/campaign_plan.md
+  - outputs/campaigns/local_rom_campaign/campaign_step_index.csv
+  - outputs/campaigns/local_rom_campaign/next_steps.md
+  - outputs/campaigns/local_rom_campaign/resource_summary.json
+metrics: {}
+known_issues:
+- "The `.agents` directory is mounted read-only inside the sandbox, so syncing repo-specific skill metadata required elevated writes outside the sandbox."
+- "The root `tools/` entrypoints are thin wrappers around `.agents/tools/`; if the `.agents` starter content is removed, those wrappers will need to be repointed or the generic scripts copied into root `tools/`."
+- "The `dmdc campaign --dry-run` smoke test emitted a Matplotlib config-directory warning because the default `~/.config/matplotlib` path is not writable in this environment."
+- "`python -m pip install -r requirements-codex-tools.txt` targeted the user site-packages path, not the repo `.venv`."
+next_actions:
+- "Copy `examples/real_data_onboarding/` or a template config into `studies/<study>/` and run `dmdc campaign --config studies/<study>/study_config.toml --dry-run`."
+- "Set `MPLCONFIGDIR` to a writable path when running plotting or dashboard-related commands in restricted environments."
+- "Decide whether to keep the starter workflow delegated through `.agents/` or promote the generic helper scripts fully into root `tools/`."

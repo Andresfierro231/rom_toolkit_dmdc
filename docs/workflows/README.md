@@ -7,6 +7,7 @@ Start with:
 ```text
 ../../WORKFLOWS.md
 campaign_workflows.md
+research_provenance_workflow.md
 ../navigation/workflow_map.md
 ../navigation/command_index.md
 ```

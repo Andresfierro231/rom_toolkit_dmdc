@@ -1,0 +1,17 @@
+figure_id: REPLACE_ME
+plot_type: line
+title: REPLACE_ME
+source_data: REPLACE_ME.csv
+script_path: REPLACE_ME.py
+axes:
+  x: ""
+  y: ""
+  x_label: ""
+  y_label: ""
+style:
+  short_labels: true
+  avoid_overlap: true
+  output_formats: [pdf, svg, tex]
+caption: >
+  Replace with a report-ready caption.
+notes: []

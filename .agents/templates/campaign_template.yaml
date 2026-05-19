@@ -1,0 +1,43 @@
+campaign_id: REPLACE_ME
+created_at_local: null
+name: REPLACE_ME
+research_question: REPLACE_ME
+status: planned
+input_files:
+  - configs/templates/central_campaign_config.toml
+  - configs/templates/central_study_config.toml
+validation_files:
+  - data/example_timeseries.csv
+  - data/example_multicase_timeseries.csv
+  - examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv
+config_files:
+  study_config: studies/REPLACE_ME/study_config.toml
+  campaign_config: configs/templates/central_campaign_config.toml
+run_plan:
+  workflow_mode: dmdc_campaign
+  description: Run a dry-run or selected `dmdc campaign` steps from one central TOML config, then checkpoint the work under `analysis/`.
+  parameters:
+    execution_mode: local
+    campaign_steps: []
+    dry_run: true
+  planned_runs:
+    - command: python -m dmdc.cli campaign --config studies/REPLACE_ME/study_config.toml --dry-run --steps inspect compare
+      purpose: Preview the modular workflow and output locations before running analysis.
+analysis:
+  metrics:
+    - model_comparison.csv
+    - validation_summary.csv
+    - sweep_results.csv
+  figures: []
+  tables: []
+reporting:
+  report_dir: analysis/reports/REPLACE_ME
+  checkpoint: analysis/reports/REPLACE_ME/CHECKPOINT.md
+  manifest: analysis/reports/REPLACE_ME/MANIFEST.yaml
+  workflow_docs:
+    - docs/workflows/campaign_workflows.md
+    - docs/workflows/research_provenance_workflow.md
+notes:
+  - Keep the repo's active CLI workflow in `src/dmdc/` as the execution path.
+  - Use `outputs/campaigns/<campaign_name>/` for dmdc campaign plans and step indexes.
+  - Use `analysis/` for provenance-first research checkpoints and summaries.

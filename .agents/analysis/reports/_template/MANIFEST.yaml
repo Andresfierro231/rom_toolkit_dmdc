@@ -1,0 +1,24 @@
+campaign_id: REPLACE_ME
+created_at_local: null
+research_question: REPLACE_ME
+git:
+  repo_root: null
+  branch: null
+  commit: null
+  dirty: null
+inputs:
+  input_files: []
+  validation_files: []
+  campaign_config: null
+commands: []
+scripts_used: []
+outputs:
+  report_dir: null
+  runtime_rows_dir: analysis/runtime_rows
+  runtimes_master: analysis/runtimes_master.csv
+  figures: []
+  tables: []
+  reports: []
+metrics: {}
+known_issues: []
+next_actions: []

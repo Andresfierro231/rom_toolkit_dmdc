@@ -1,0 +1,50 @@
+campaign_id: 2026-05-18_workflow_adaptation_smoke_test
+created_at_local: '2026-05-18T12:01:49-05:00'
+name: workflow_adaptation_smoke_test
+research_question: Tailor the Codex research workflow to this repository.
+status: initialized
+input_files:
+  - README.md
+  - WORKFLOWS.md
+  - COMMANDS.md
+  - pyproject.toml
+  - docs/workflows/README.md
+  - docs/workflows/campaign_workflows.md
+  - docs/navigation/workflow_map.md
+  - configs/templates/central_campaign_config.toml
+  - configs/templates/central_study_config.toml
+  - configs/templates/one_command_local_workflow.toml
+  - examples/real_data_onboarding/README.md
+  - examples/real_data_onboarding/study_config.toml
+  - scripts/workflows/run_campaign_local.sh
+  - src/dmdc/cli.py
+  - src/dmdc/campaign.py
+  - outputs/campaigns/local_rom_campaign/campaign_plan.md
+  - outputs/campaigns/local_rom_campaign/campaign_step_index.csv
+validation_files:
+  - data/example_timeseries.csv
+  - data/example_multicase_timeseries.csv
+  - examples/end_to_end_thermal_loop_study/thermal_loop_synthetic.csv
+run_plan:
+  description: Tailor the starter provenance workflow to the repository's existing central-config `dmdc` campaign workflow without changing the active modeling commands.
+  parameters:
+    requirements_file: requirements-codex-tools.txt
+    dry_run_config: configs/templates/one_command_local_workflow.toml
+    dry_run_steps:
+      - inspect
+      - compare
+  planned_runs:
+    - python -m pip install -r requirements-codex-tools.txt
+    - python -m py_compile $(find tools -name "*.py")
+    - python tools/studies/init_campaign.py --name workflow_adaptation_smoke_test --question "Tailor the Codex research workflow to this repository."
+    - .venv/bin/python -m dmdc.cli campaign --config configs/templates/one_command_local_workflow.toml --dry-run --steps inspect compare
+analysis:
+  metrics:
+    - dry_run_steps=2
+    - commands_recorded=4
+  figures: []
+  tables: []
+notes:
+  - The repo's active execution path is the central TOML plus `dmdc` CLI workflow.
+  - Root `tools/` wrappers delegate to `.agents/tools/` to avoid replacing existing repo functionality.
+  - The smoke test verified wrapper compilation and a safe `dmdc campaign --dry-run` only.

@@ -1,0 +1,9 @@
+analysis/raw_outputs/
+analysis/tmp/
+analysis/cache/
+analysis/**/*.log
+analysis/**/*.out
+analysis/**/*.err
+*.pyc
+__pycache__/
+.DS_Store
