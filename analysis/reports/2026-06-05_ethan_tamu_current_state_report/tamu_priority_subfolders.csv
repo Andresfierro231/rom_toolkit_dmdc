@@ -1,0 +1,9 @@
+case_dir,top_level_folder,selection_role,candidate_heater_power_W,candidate_air_flow_Lpm,candidate_test_section_power_W,metadata_parse_status,file_count,note
+2024_05_04/2,2024_05_04,recognized_salt_1_anchor,258.0,37.0,44.8,repaired,6,Collaborator-confirmed Salt 1 anchor
+2024_05_04/3,2024_05_04,recognized_salt_2_anchor,295.0,37.0,44.8,repaired,6,Collaborator-confirmed Salt 2 anchor
+2024_05_04/4,2024_05_04,recognized_salt_3_anchor,362.0,37.0,44.8,repaired,6,Collaborator-confirmed Salt 3 anchor
+2024_05_04/6,2024_05_04,recognized_salt_4_anchor,395.0,37.0,44.8,repaired,6,Collaborator-confirmed Salt 4 anchor
+2025_03_19/4,2025_03_19,advisory_water_anchor,150.0,200.0,0.0,repaired,6,Best current advisory water-side anchor across multiple Water targets
+2025_06_19/16,2025_06_19,largest_family_representative,300.0,35.0,22.8,repaired,7,Representative central case with transient and fiber-optic workspaces
+2025_05_20/4,2025_05_20,water_1_anchor,325.0,75.0,22.08,repaired,6,Best current advisory Water 1 anchor
+2024_05_04/1,2024_05_04,water_3_anchor,201.0,37.0,44.8,repaired,6,Best current advisory Water 3 anchor

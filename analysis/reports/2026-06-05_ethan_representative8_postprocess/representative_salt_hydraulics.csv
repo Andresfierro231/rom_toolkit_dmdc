@@ -1,0 +1,5 @@
+study_case,source_id,lower_leg_abs_delta_p_rgh_pa,right_leg_abs_delta_p_rgh_pa,upper_leg_abs_delta_p_rgh_pa,left_leg_abs_delta_p_rgh_pa,test_section_branch_abs_delta_p_rgh_pa,connector_span_abs_delta_p_rgh_pa
+Salt 1,viscosity_screening_salt_test_1_kirst_coarse_mesh,0.9499948299999996,10.2519775054,43.977919921,15.569077550000001,0.31092319999999773,2.6847941199999994
+Salt 2,val_salt_test_2_coarse_mesh_laminar,2.0012747610000003,9.621540102,36.74926249,15.473324062,1.30412733,5.0090161779999995
+Salt 3,viscosity_screening_salt_test_3_jin_coarse_mesh,2.2463435369999996,9.653894862000001,38.022483570000006,15.213591897,1.88050359,6.5907313400000005
+Salt 4,viscosity_screening_salt_test_4_jin_coarse_mesh,2.543028036,11.055311839,38.42732622,15.272479906,2.900423739999999,8.780575246

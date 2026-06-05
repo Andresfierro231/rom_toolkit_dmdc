@@ -1,0 +1,18 @@
+{
+  "source_ids": [
+    "val_salt_test_2_coarse_mesh_laminar",
+    "viscosity_screening_salt_test_3_jin_coarse_mesh",
+    "val_water_test_1_coarse_mesh_laminar"
+  ],
+  "output_root": "/scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/reports/2026-06-05_ethan_zero_advance_transport_phase1_2",
+  "tmp_root": "/tmp/ethan_zero_advance_transport",
+  "files": [
+    "axial_wall_patch_table.csv",
+    "axial_bulk_station_table.csv",
+    "axial_joined_profile_table.csv",
+    "section_resistance_table.csv",
+    "thermal_circuit_table.csv",
+    "representative8_postprocess_readiness.csv",
+    "README.md"
+  ]
+}

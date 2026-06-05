@@ -1,0 +1,7 @@
+source_id,case_id,run_status,convergence_reached,comparison_ready,heater_power_W,cooling_power_W,final_time_s,mdot_mean_abs_kg_s,probe_T_avg_K,exp_tp_rmse_k,exp_tw_rmse_k,exp_mdot_abs_error_pct
+val_salt_test_2_coarse_mesh_laminar,salt_test_2,running,False,comparison_candidate,265.7,56.34,4066.0,0.01361622898,452.58333066666665,2.573896609361759,6.2626823688395215,18.951017976190467
+viscosity_screening_salt_test_2_kirst_coarse_mesh,salt_test_2_kirst,completed,False,convergence_audit_required,265.7,56.34,586.560241,0.012243562199999999,446.646902,4.4221360873972575,6.971738348376763,27.121653571428574
+viscosity_screening_salt_test_1_kirst_coarse_mesh,salt_test_1_kirst,completed,False,convergence_audit_required,232.3,55.58,3279.163522013,0.010932096545,429.4821175,17.329684694597706,17.690732707468666,30.809515537974686
+viscosity_screening_salt_test_4_jin_coarse_mesh,salt_test_4_jin,terminated,False,convergence_audit_required,337.6,65.98,2083.0,0.016985141185,477.37963333333335,1.687564177784045,7.555170550541495,15.496810024875622
+viscosity_screening_salt_test_3_jin_coarse_mesh,salt_test_3_jin,terminated,False,convergence_audit_required,297.5,60.55,2515.0,0.014925509112499999,461.26648033333333,2.1338924649904922,6.904353795656094,14.711376500000014
+viscosity_screening_salt_test_4_kirst_coarse_mesh,salt_test_4_kirst,terminated,False,convergence_audit_required,337.6,65.98,2984.0,0.0158791593525,477.20837416666666,2.2215873830715664,7.272489858169521,20.999207201492545

@@ -1,0 +1,22 @@
+rank,source,unit_id,category,reason
+1,ethan_runs,val_salt_test_2_coarse_mesh_laminar,active_continuation_primary_validation_case,Strongest current live validation lane and primary Salt 2 manuscript representative
+2,ethan_runs,viscosity_screening_salt_test_4_jin_coarse_mesh,manuscript_sensitivity_case,Chosen Salt 4 manuscript sensitivity representative and one of the strongest practically useful salt rows
+3,tamu_box_loop_data,2024_05_04/3,recognized_salt_anchor,Refreshed collaborator-confirmed Salt 2 TAMU anchor
+4,tamu_box_loop_data,2025_03_19/4,advisory_water_anchor,Best current advisory water-side TAMU anchor across multiple Water targets
+5,ethan_runs,viscosity_screening_salt_test_3_jin_coarse_mesh,practically_steady_case,Preferred Salt 3 manuscript representative under practical steadiness criteria
+6,tamu_box_loop_data,2024_05_04/2,recognized_salt_anchor,Refreshed collaborator-confirmed Salt 1 TAMU anchor
+7,tamu_box_loop_data,2024_05_04/4,recognized_salt_anchor,Refreshed collaborator-confirmed Salt 3 TAMU anchor
+8,tamu_box_loop_data,2024_05_04/6,recognized_salt_anchor,Refreshed collaborator-confirmed Salt 4 TAMU anchor
+9,ethan_runs,viscosity_screening_salt_test_1_kirst_coarse_mesh,completed_not_converged_cautionary_case,Important completed Salt 1 restart row but not fully converged and still not claim-ready
+10,tamu_box_loop_data,2025_06_19/16,largest_family_representative,Representative central case from the largest current TAMU family
+11,tamu_box_loop_data,2025_05_20/4,advisory_water_anchor,Best current Water 1 TAMU metadata anchor
+12,tamu_box_loop_data,2024_05_04/1,advisory_water_anchor,Best current Water 3 TAMU metadata anchor
+13,ethan_runs,viscosity_screening_salt_test_4_kirst_coarse_mesh,steady_reference_diagnostic,Steadier Salt 4 reference row paired against the Jin manuscript row
+14,ethan_runs,viscosity_screening_salt_test_3_kirst_coarse_mesh,paired_sensitivity_case,Kirst counterpart to the preferred Salt 3 Jin row
+15,ethan_runs,viscosity_screening_salt_test_2_kirst_coarse_mesh,completed_not_converged_reference,Completed Salt 2 staged reference row but not fully converged and no longer ahead of the native Salt 2 continuation
+16,ethan_runs,viscosity_screening_salt_test_2_jin_coarse_mesh,paired_sensitivity_case,Jin counterpart to the stronger Salt 2 native lane
+17,ethan_runs,viscosity_screening_salt_test_1_jin_coarse_mesh,continuation_candidate_weak_family,Preferred future Salt 1 continuation candidate in a still-unresolved family
+18,ethan_runs,water_test_4,water_diagnostic_only,Weakest water laminar row due to shortest runtime and no convergence marker
+19,ethan_runs,water_test_3,water_diagnostic_only,Water diagnostic row useful only for trend inspection
+20,ethan_runs,water_test_2,water_diagnostic_only,Water diagnostic row useful only for trend inspection
+21,ethan_runs,water_test_1,water_diagnostic_only,Water diagnostic row useful only for trend inspection

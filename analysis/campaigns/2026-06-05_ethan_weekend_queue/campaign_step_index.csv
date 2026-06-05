@@ -1,0 +1,10 @@
+step,status,artifact_or_action,notes
+create_wrappers,completed,analysis/campaigns/2026-06-05_ethan_weekend_queue/*.sbatch,Weekend render and zero-advance wrappers created in repo
+submit_salt2_follow_on,completed,3211196,Dependent on active Salt 2 job 3202708
+submit_salt1j_follow_on,completed,3211197,Dependent on active Salt 1 Jin job 3210761
+submit_render_salt3,completed,3211198,Independent static render job
+submit_salt1k_follow_on,completed,3211199,Dependent on active Salt 1 Kirst job 3210760
+submit_salt4j_follow_on,completed,3211200,Dependent on active Salt 4 Jin job 3210231
+submit_render_water1,completed,3211201,Independent static render job
+submit_zeroadv_refresh,completed,3211208,Dependent on Salt 1 and Salt 4 follow-on jobs
+write_checkpoint,completed,analysis/campaigns/2026-06-05_ethan_weekend_queue/CHECKPOINT.md,Durable handoff for next week

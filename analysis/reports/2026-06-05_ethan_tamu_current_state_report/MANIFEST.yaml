@@ -1,0 +1,106 @@
+campaign_id: 2026-06-05_ethan_tamu_current_state_report
+generated_at: 2026-06-05T10:40:13-05:00
+task: combined current-state report for ethan_runs and tamu_box_loop_data
+research_question: >
+  What do the current Ethan CFD runs and the refreshed TAMU raw-data mirror support
+  today, what is already paper-useful versus still only diagnostic, and which
+  items should be analyzed first?
+repository:
+  branch: main
+  commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+  dirty_worktree: true
+inputs:
+  tamu_raw_root: ../tamu_box_loop_data/Loop Operational Data
+  tamu_salt_validation_source: ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv
+  tamu_water_validation_source: ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv
+  ethan_metadata_root: ../ethan_runs/reports/2026-06-04_ethan_case_metadata_index
+  ethan_all_salt_root: ../ethan_runs/reports/2026-06-04_all_salt_behavior_package
+  ethan_water_audit_root: ../ethan_runs/reports/2026-06-05_water_laminar_claim_audit
+commands:
+  - bash studies/tamu_loop_data_onboarding/scripts/run_01_inventory.sh ../tamu_box_loop_data/Loop\ Operational\ Data outputs/tamu_inventory_20260605_current
+  - bash studies/tamu_loop_data_onboarding/scripts/run_02_export_validation_cases.sh ../tamu_box_loop_data/Loop\ Operational\ Data outputs/tamu_validation_export_20260605_current ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv
+  - python ../ethan_runs/tools/analyze/build_ethan_report_package.py
+  - python ../ethan_runs/tools/analyze/build_all_salt_behavior_package.py
+  - python ../ethan_runs/tools/analyze/build_water_laminar_claim_audit.py --report-slug 2026-06-05_water_laminar_claim_audit
+  - squeue -j 3202708
+files_inspected:
+  - studies/tamu_loop_data_onboarding/README.md
+  - studies/tamu_loop_data_onboarding/scripts/run_01_inventory.sh
+  - studies/tamu_loop_data_onboarding/scripts/run_02_export_validation_cases.sh
+  - docs/workflows/tamu_data_intake_and_validation.md
+  - outputs/tamu_inventory_20260605_current/inventory_summary.json
+  - outputs/tamu_inventory_20260605_current/EXECUTIVE_SUMMARY.md
+  - outputs/tamu_validation_export_20260605_current/inventory_validation_candidates.csv
+  - outputs/tamu_validation_export_20260605_current/nearest_fit_suggestions.csv
+  - outputs/tamu_validation_export_20260605_current/validation_cases.csv
+  - ../ethan_runs/README.md
+  - ../ethan_runs/jadyn_runs/salt2/2026-06-02_runtime_recovery/README.md
+  - ../ethan_runs/reports/2026-06-04_ethan_case_metadata_index/README.md
+  - ../ethan_runs/reports/2026-06-04_ethan_case_metadata_index/ethan_case_metadata_index.json
+  - ../ethan_runs/reports/2026-06-04_all_salt_behavior_package/README.md
+  - ../ethan_runs/reports/2026-06-05_water_laminar_claim_audit/README.md
+outputs:
+  report_dir: analysis/reports/2026-06-05_ethan_tamu_current_state_report
+  reports:
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/EXECUTIVE_SUMMARY.md
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/TECHNICAL_REPORT.md
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/priority_queue.csv
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/ethan_priority_metrics.csv
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/tamu_priority_subfolders.csv
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/CHECKPOINT.md
+    - analysis/reports/2026-06-05_ethan_tamu_current_state_report/MANIFEST.yaml
+  refreshed_artifacts:
+    - outputs/tamu_inventory_20260605_current
+    - outputs/tamu_validation_export_20260605_current
+    - ../ethan_runs/reports/2026-06-04_all_salt_behavior_package
+    - ../ethan_runs/reports/2026-06-05_water_laminar_claim_audit
+key_results:
+  tamu:
+    top_level_items: 23
+    directories_indexed: 65
+    case_dirs: 53
+    metadata_failures: 0
+    normalized_candidates: 43
+    ready_for_validation_export: 0
+    largest_candidate_family:
+      folder: 2025_06_19
+      count: 17
+  ethan:
+    analyzable_rows: 13
+    run_status_counts:
+      running: 1
+      completed: 2
+      terminated: 10
+    comparison_ready_counts:
+      comparison_candidate: 1
+      convergence_audit_required: 12
+    active_continuation_job:
+      job_id: 3202708
+      scheduler_state: RUNNING
+first_four_analyzed:
+  - val_salt_test_2_coarse_mesh_laminar
+  - viscosity_screening_salt_test_4_jin_coarse_mesh
+  - 2024_05_04/3
+  - 2025_03_19/4
+next_priority_order:
+  - viscosity_screening_salt_test_3_jin_coarse_mesh
+  - 2024_05_04/2
+  - 2024_05_04/4
+  - 2024_05_04/6
+  - 2025_06_19/16
+  - 2025_05_20/4
+  - 2024_05_04/1
+  - viscosity_screening_salt_test_1_kirst_coarse_mesh
+  - viscosity_screening_salt_test_4_kirst_coarse_mesh
+  - viscosity_screening_salt_test_3_kirst_coarse_mesh
+  - viscosity_screening_salt_test_2_kirst_coarse_mesh
+  - viscosity_screening_salt_test_2_jin_coarse_mesh
+  - viscosity_screening_salt_test_1_jin_coarse_mesh
+  - water_test_4
+  - water_test_3
+  - water_test_2
+  - water_test_1
+limitations:
+  - Ethan metadata refresh did not exit cleanly during this turn; June 4 per-case artifacts were used together with a fresh June 5 scheduler check.
+  - TAMU candidate rows remain metadata_only and are not validation-ready yet.
+  - No expensive CFD reruns or deeper TAMU re-normalization beyond repo workflows were performed.

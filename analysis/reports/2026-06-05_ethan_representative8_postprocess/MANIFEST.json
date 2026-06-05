@@ -1,0 +1,53 @@
+{
+  "generated_in_repo": "/scratch/09748/andresfierro231/projects_scratch/dmdc-analysis",
+  "source_reports_root": "/scratch/09748/andresfierro231/projects_scratch/ethan_runs/reports",
+  "selected_representatives": [
+    {
+      "study_case": "Salt 1",
+      "source_id": "viscosity_screening_salt_test_1_kirst_coarse_mesh"
+    },
+    {
+      "study_case": "Salt 2",
+      "source_id": "val_salt_test_2_coarse_mesh_laminar"
+    },
+    {
+      "study_case": "Salt 3",
+      "source_id": "viscosity_screening_salt_test_3_jin_coarse_mesh"
+    },
+    {
+      "study_case": "Salt 4",
+      "source_id": "viscosity_screening_salt_test_4_jin_coarse_mesh"
+    },
+    {
+      "study_case": "Water 1",
+      "source_id": "val_water_test_1_coarse_mesh_laminar"
+    },
+    {
+      "study_case": "Water 2",
+      "source_id": "val_water_test_2_coarse_mesh_laminar"
+    },
+    {
+      "study_case": "Water 3",
+      "source_id": "val_water_test_3_coarse_mesh_laminar"
+    },
+    {
+      "study_case": "Water 4",
+      "source_id": "val_water_test_4_coarse_mesh_laminar"
+    }
+  ],
+  "files_written": [
+    "REPORT.md",
+    "representative_8_postprocess_summary.csv",
+    "representative_salt_hydraulics.csv",
+    "capability_matrix.csv",
+    "MISSING_LAYER_PLAN.md",
+    "prescribed_htc_table.csv"
+  ],
+  "key_source_files": [
+    "../ethan_runs/reports/2026-06-05_ethan_convergence_and_salt1_campaign/eight_case_convergence_summary.csv",
+    "../ethan_runs/reports/2026-06-04_ethan_direct_validation/ethan_direct_validation_metrics.csv",
+    "../ethan_runs/reports/2026-06-04_ethan_case_metadata_index/ethan_case_metadata_index.csv",
+    "../ethan_runs/reports/2026-06-05_ethan_wall_loss_resistance_coupling/salt_hydraulic_summary.csv",
+    "../ethan_runs/reports/2026-06-04_ethan_transient_axial_package/all_salt_axial_patch_latest.csv"
+  ]
+}
