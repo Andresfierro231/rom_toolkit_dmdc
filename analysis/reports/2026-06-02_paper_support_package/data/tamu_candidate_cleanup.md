@@ -1,0 +1,11 @@
+| stage           | category                    |   count |
+|:----------------|:----------------------------|--------:|
+| prior_export    | retained_or_candidate_rows  |      54 |
+| prior_export    | removed_example_or_demo     |       2 |
+| prior_export    | removed_jadyn_metadata_only |       8 |
+| prior_export    | removed_pseudo_root_row     |       1 |
+| filtered_export | retained_or_candidate_rows  |      43 |
+| filtered_export | removed_example_or_demo     |       0 |
+| filtered_export | removed_jadyn_metadata_only |       0 |
+| filtered_export | removed_pseudo_root_row     |       0 |
+| filtered_export | removed_other_removed       |       0 |

@@ -1,0 +1,29 @@
+target_case_name,candidate_case_name,recognized_case_name,recognition_basis,candidate_case_dir,candidate_top_level_folder,distance_score,compared_fields,review_status
+Salt 1,2024_05_04__2,Salt 1,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/2,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 1,2024_05_04__2,Salt 1,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/2,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 2,2024_05_04__3,Salt 2,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/3,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 2,2024_05_04__3,Salt 2,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/3,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 3,2024_05_04__4,Salt 3,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/4,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 3,2024_05_04__4,Salt 3,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/4,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 4,2024_05_04__6,Salt 4,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/6,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Salt 4,2024_05_04__6,Salt 4,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/6,2024_05_04,0.0,manual_case_map,known_case_subfolder
+Water 1,2025_05_20__4,,,2025_05_20/4,2025_05_20,0.5327,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 1,2025_03_19__4,,,2025_03_19/4,2025_03_19,0.556,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 1,2025_03_19__7,,,2025_03_19/7,2025_03_19,0.556,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 1,2025_06_19__13,,,2025_06_19/13,2025_06_19,0.556995,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 1,2025_06_19__14,,,2025_06_19/14,2025_06_19,0.556995,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 2,2025_03_19__4,,,2025_03_19/4,2025_03_19,0.517556,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 2,2025_03_19__7,,,2025_03_19/7,2025_03_19,0.517556,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 2,2024_05_04__1,,,2024_05_04/1,2024_05_04,0.539898,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 2,2025_03_19__2,,,2025_03_19/2,2025_03_19,0.558738,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 2,2025_03_19__3,,,2025_03_19/3,2025_03_19,0.558738,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 3,2024_05_04__1,,,2024_05_04/1,2024_05_04,0.46077,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 3,2025_03_19__4,,,2025_03_19/4,2025_03_19,0.476667,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 3,2025_03_19__7,,,2025_03_19/7,2025_03_19,0.476667,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 3,2024_05_04__2,Salt 1,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/2,2024_05_04,0.494843,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 3,2024_05_04__3,Salt 2,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/3,2024_05_04,0.509914,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 4,2025_03_19__4,,,2025_03_19/4,2025_03_19,0.398333,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 4,2025_03_19__7,,,2025_03_19/7,2025_03_19,0.398333,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 4,2025_03_19__2,,,2025_03_19/2,2025_03_19,0.448783,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 4,2025_03_19__3,,,2025_03_19/3,2025_03_19,0.448783,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only
+Water 4,2025_03_19__6,,,2025_03_19/6,2025_03_19,0.448783,"heater_power_W,air_flow_Lpm,test_section_power_W",advisory_only

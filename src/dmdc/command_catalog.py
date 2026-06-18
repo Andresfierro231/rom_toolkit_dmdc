@@ -49,6 +49,30 @@ COMMAND_GROUPS: dict[str, list[CommandEntry]] = {
             "inspection_summary.json, warnings.txt, case_quality_dashboard.csv",
             "docs/start_here_connect_your_data.md; docs/data_inspection_resampling.md",
         ),
+        CommandEntry(
+            "dmdc tamu-inventory --root ../tamu_loop_data/Loop\\ Operational\\ Data",
+            "Build a table of contents and case inventory for newly downloaded TAMU loop data.",
+            "top_level_contents.csv, case_inventory.csv, TABLE_OF_CONTENTS.md",
+            "docs/workflows/tamu_data_intake_and_validation.md; docs/workflows/tamu_loop_data_recovery.md",
+        ),
+        CommandEntry(
+            "dmdc tamu-validation-export --inventory-root ../tamu_loop_data/Loop\\ Operational\\ Data --source-tables ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv",
+            "Normalize validation cases and write advisory nearest-fit suggestions.",
+            "validation_cases.csv, validation_policy.yaml, validation_data.csv, nearest_fit_suggestions.csv",
+            "docs/workflows/tamu_data_intake_and_validation.md; docs/workflows/tamu_loop_data_recovery.md",
+        ),
+        CommandEntry(
+            "python tools/studies/init_tamu_loop_data_repo.py --target-root ../tamu_loop_data",
+            "Recreate the sibling TAMU raw-data mirror repo and Box pull helpers after scratch loss.",
+            "../tamu_loop_data/README.md, Box pull helpers, repo scaffold",
+            "docs/workflows/tamu_loop_data_recovery.md",
+        ),
+        CommandEntry(
+            "python tools/box/upload_to_tamu_flow_loop_box.py --execute",
+            "Upload staged analysis artifacts from to_box/ to the configured Box outputs folder.",
+            "Box file versions in analyzing_operational_data",
+            "docs/workflows/tamu_loop_data_recovery.md; to_box/README.md",
+        ),
     ],
     "Offline ROM analysis": [
         CommandEntry(
@@ -149,6 +173,7 @@ COMMAND_GROUPS: dict[str, list[CommandEntry]] = {
 
 MINIMAL_WORKFLOWS = [
     ("First real-data pass", "dmdc campaign --config studies/my_loop/study_config.toml --steps import inspect compare"),
+    ("New TAMU data intake", "dmdc tamu-inventory --root ../tamu_loop_data/Loop\\ Operational\\ Data --outdir outputs/tamu_inventory"),
     ("Live replay demo", "dmdc campaign --config studies/my_loop/study_config.toml --steps live_replay_adapt dashboard operator_report"),
     ("Long archive pass", "dmdc campaign --config studies/my_loop/study_config.toml --steps archive_run archive_summarize archive_schema dashboard"),
     ("HPC planning only", "dmdc hpc-plan --config studies/my_loop/study_config.toml"),

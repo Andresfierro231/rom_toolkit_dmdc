@@ -82,5 +82,5 @@ window_label = "60s"
 root = "outputs/simple_loop_campaign"
 plots = true
 inspection_outdir = "outputs/inspection"
-comparison_outdir = "outputs/compare"
+compare_outdir = "outputs/compare"
 operator_report_outdir = "outputs/operator_report"

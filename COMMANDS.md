@@ -20,6 +20,10 @@
 |---|---|---|---|
 | `dmdc import-data --config studies/my_loop/study_config.toml` | Import CSV/Excel/folder/LabVIEW/EPICS-style data into a canonical table. | Canonical CSV/Parquet table | `docs/importers/README.md` |
 | `dmdc inspect-data --config studies/my_loop/study_config.toml` | Inspect columns, missing values, case quality, and nonuniform/adaptive time steps. | inspection_summary.json, warnings.txt, case_quality_dashboard.csv | `docs/start_here_connect_your_data.md; docs/data_inspection_resampling.md` |
+| `dmdc tamu-inventory --root ../tamu_loop_data/Loop\ Operational\ Data` | Create a table of contents and per-case inventory for a new TAMU data drop. | top_level_contents.csv, case_inventory.csv, TABLE_OF_CONTENTS.md | `docs/workflows/tamu_data_intake_and_validation.md; docs/workflows/tamu_loop_data_recovery.md` |
+| `dmdc tamu-validation-export --inventory-root ../tamu_loop_data/Loop\ Operational\ Data --source-tables ...` | Normalize validation source tables and generate advisory nearest-fit suggestions from the TAMU inventory. | validation_cases.csv, validation_policy.yaml, validation_data.csv, nearest_fit_suggestions.csv | `docs/workflows/tamu_data_intake_and_validation.md; docs/workflows/tamu_loop_data_recovery.md` |
+| `python tools/studies/init_tamu_loop_data_repo.py --target-root ../tamu_loop_data` | Recreate the sibling raw-data Box mirror repo after scratch loss. | `../tamu_loop_data/README.md`, Box pull helpers, repo scaffold | `docs/workflows/tamu_loop_data_recovery.md` |
+| `python tools/box/upload_to_tamu_flow_loop_box.py --execute` | Upload staged artifacts from `to_box/` to the Box outputs folder without touching the raw-data folder. Changed same-name remote files are skipped unless you explicitly request overwrite. | New Box files under `analyzing_operational_data` | `docs/workflows/tamu_loop_data_recovery.md; to_box/README.md` |
 
 ## Offline ROM analysis
 
@@ -64,4 +68,5 @@
 
 - Start with `WORKFLOWS.md` for one-command workflows.
 - Use `examples/real_data_onboarding/` when connecting messy SAM/experimental data.
+- Use `studies/jsalt2_moose_mesh_convergence_poc/` when the source data already exists under `../physor2026_andrew/.../analysis/collections/.../outputs`.
 - Use `docs/navigation/choose_your_path.md` when you know the task but not the command.

@@ -84,5 +84,8 @@ live_outdir = "{tmp_path / 'live'}"
     result = _run_module("campaign", "--config", str(cfg), "--dry-run", "--steps", "inspect", "compare")
     assert "Campaign directory" in result.stdout
     assert "Next steps:" in result.stdout
-    step_index = tmp_path / "campaigns" / "hardening_demo" / "campaign_step_index.csv"
+    campaign_dir_line = next(line for line in result.stdout.splitlines() if line.startswith("Campaign directory: "))
+    campaign_dir = Path(campaign_dir_line.split(": ", 1)[1].strip())
+    step_index = campaign_dir / "campaign_step_index.csv"
     assert step_index.exists()
+    assert (tmp_path / "campaigns" / "hardening_demo" / "campaign_runs.csv").exists()

@@ -4,7 +4,7 @@ This package tests whether the missing transport layer can be extracted from the
 
 ## Case status
 
-- `Salt 2` (`val_salt_test_2_coarse_mesh_laminar`): latest processor time `4069`, wall rows `49`, bulk rows `4`, joined rows `49`, success `partial`.
+- `Salt 2` (`val_salt_test_2_coarse_mesh_laminar`): latest processor time `8203`, wall rows `49`, bulk rows `4`, joined rows `49`, success `partial`.
 - `Salt 3` (`viscosity_screening_salt_test_3_jin_coarse_mesh`): latest processor time `2514`, wall rows `49`, bulk rows `4`, joined rows `49`, success `partial`.
 - `Water 1` (`val_water_test_1_coarse_mesh_laminar`): latest processor time `5274`, wall rows `49`, bulk rows `4`, joined rows `49`, success `yes`.
 

@@ -8,6 +8,8 @@ Start with:
 ../../WORKFLOWS.md
 campaign_workflows.md
 research_provenance_workflow.md
+jsalt2_external_analysis_poc.md
+tamu_data_intake_and_validation.md
 ../navigation/workflow_map.md
 ../navigation/command_index.md
 ```

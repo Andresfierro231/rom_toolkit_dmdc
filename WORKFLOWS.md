@@ -35,6 +35,59 @@ dmdc campaign --config study_config.toml --dry-run
 dmdc campaign --config study_config.toml --steps import inspect compare
 ```
 
+## TAMU raw data intake and validation prep
+
+Use this when a new TAMU data drop arrives and you need an organized inventory before import or validation work:
+
+```bash
+dmdc tamu-inventory \
+  --root ../tamu_loop_data/Loop\ Operational\ Data \
+  --outdir outputs/tamu_inventory
+
+dmdc tamu-validation-export \
+  --inventory-root ../tamu_loop_data/Loop\ Operational\ Data \
+  --source-tables \
+    ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv \
+    ../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv \
+  --outdir outputs/tamu_validation_export
+```
+
+This path is documented in:
+
+```text
+docs/workflows/tamu_data_intake_and_validation.md
+docs/workflows/tamu_loop_data_recovery.md
+studies/tamu_loop_data_onboarding/README.md
+```
+
+If scratch is cleared and the sibling raw-data repo is missing, recreate it first:
+
+```bash
+python tools/studies/init_tamu_loop_data_repo.py --target-root ../tamu_loop_data
+```
+
+## External analysis proof of concept
+
+If you already have trajectory CSVs in a maintained external analysis tree, use
+the ready-made JSALT2 study instead of starting from a blank copy:
+
+```bash
+dmdc campaign \
+  --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml \
+  --dry-run
+
+dmdc campaign \
+  --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml \
+  --steps import inspect pod_dmdc compare
+```
+
+This path is documented in:
+
+```text
+docs/workflows/jsalt2_external_analysis_poc.md
+studies/jsalt2_moose_mesh_convergence_poc/README.md
+```
+
 ## Common campaign recipes
 
 ### 1. Import and inspect only

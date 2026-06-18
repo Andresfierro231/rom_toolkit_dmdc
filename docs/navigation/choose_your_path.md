@@ -16,7 +16,46 @@ See:
 
 ```text
 examples/real_data_onboarding/README.md
-docs/tutorials/real_data_onboarding.md
+docs/workflows/jsalt2_external_analysis_poc.md
+```
+
+## I already have external analysis outputs and want a ready-made POC
+
+Use the built-in JSALT2 proof-of-concept study:
+
+```bash
+dmdc campaign \
+  --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml \
+  --dry-run
+
+dmdc campaign \
+  --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml \
+  --steps import inspect pod_dmdc compare
+```
+
+Read:
+
+```text
+studies/jsalt2_moose_mesh_convergence_poc/README.md
+docs/workflows/jsalt2_external_analysis_poc.md
+```
+
+## I just downloaded TAMU loop folders and need them organized first
+
+Start with the dedicated onboarding study:
+
+```bash
+python tools/studies/init_tamu_loop_data_repo.py --target-root ../tamu_loop_data
+bash studies/tamu_loop_data_onboarding/scripts/run_01_inventory.sh
+bash studies/tamu_loop_data_onboarding/scripts/run_02_export_validation_cases.sh
+```
+
+Read:
+
+```text
+studies/tamu_loop_data_onboarding/README.md
+docs/workflows/tamu_data_intake_and_validation.md
+docs/workflows/tamu_loop_data_recovery.md
 ```
 
 ## I have a raw CSV/Excel/LabVIEW folder

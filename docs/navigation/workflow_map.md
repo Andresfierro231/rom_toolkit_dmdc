@@ -6,6 +6,9 @@ Use this file when you know what you want to accomplish but not which command to
 |---|---|---|
 | See the command guide | `dmdc guide` | `COMMANDS.md` |
 | Run a modular workflow | `dmdc campaign --config study_config.toml --steps ...` | `WORKFLOWS.md`, `docs/workflows/campaign_workflows.md` |
+| Inventory new TAMU loop data | `dmdc tamu-inventory --root ../tamu_loop_data/Loop\ Operational\ Data` | `docs/workflows/tamu_data_intake_and_validation.md; docs/workflows/tamu_loop_data_recovery.md` |
+| Export normalized TAMU validation cases | `dmdc tamu-validation-export --inventory-root ../tamu_loop_data/Loop\ Operational\ Data --source-tables ...` | `docs/workflows/tamu_data_intake_and_validation.md; docs/workflows/tamu_loop_data_recovery.md` |
+| Run the external JSALT2 proof of concept | `dmdc campaign --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml --dry-run` | `docs/workflows/jsalt2_external_analysis_poc.md` |
 | Connect CSV/Excel/folder/LabVIEW/EPICS-style data | `dmdc import-data --config study_config.toml` | `docs/importers/README.md` |
 | Check whether data is usable | `dmdc inspect-data --config study_config.toml` | `docs/data_inspection_resampling.md` |
 | Handle nonuniform/adaptive time steps | `dmdc adaptive-fit` or include `adaptive_dmdc` in `compare` | `docs/math/13_adaptive_variable_dt_dmdc.md` |
@@ -27,5 +30,9 @@ Use this file when you know what you want to accomplish but not which command to
 2. `WORKFLOWS.md`
 3. `COMMANDS.md`
 4. `examples/real_data_onboarding/README.md`
-5. `docs/navigation/choose_your_path.md`
-6. The focused doc for your command.
+5. `docs/workflows/tamu_data_intake_and_validation.md`
+6. `docs/workflows/tamu_loop_data_recovery.md`
+7. `docs/workflows/jsalt2_external_analysis_poc.md`
+8. `docs/navigation/choose_your_path.md`
+9. `docs/repository_capabilities_layout_and_solvers.md`
+10. The focused doc for your command.

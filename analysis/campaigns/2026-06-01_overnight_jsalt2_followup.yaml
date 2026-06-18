@@ -1,0 +1,45 @@
+{
+  "campaign_id": "2026-06-01_overnight_jsalt2_followup",
+  "created_at_local": "2026-06-01T18:21:41-05:00",
+  "name": "overnight_jsalt2_followup",
+  "research_question": "Which overnight follow-up jobs are ready after the repaired JSALT2 autonomous/no-h campaign, and can they be submitted cleanly from the current repo state?",
+  "status": "prepared_auth_blocked",
+  "input_files": [
+    "outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260526T133003Z_5943a549/workflow_outputs/import/jsalt2_moose_mesh_convergence_autonomous_no_h.parquet",
+    "outputs/campaigns/jsalt2_moose_mesh_convergence_poc/run_20260525T230237Z_0842b2f6/workflow_outputs/import/jsalt2_moose_mesh_convergence_poc.parquet",
+    "analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch",
+    "analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch",
+    "analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch"
+  ],
+  "validation_files": [],
+  "run_plan": {
+    "description": "Submit three overnight Slurm jobs: repaired no-h JSALT2 sweep, matching with-h sweep, and full pytest guardrail.",
+    "parameters": {
+      "partition": "NuclearEnergy",
+      "account": "ASC23046",
+      "jobs_prepared": 3,
+      "submit_host": "login3.ls6.tacc.utexas.edu"
+    },
+    "planned_runs": [
+      "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 03:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch'",
+      "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 03:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch'",
+      "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 03:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch'"
+    ]
+  },
+  "analysis": {
+    "metrics": [
+      "repaired no-h import parquet exists and is readable",
+      "with-h POC import parquet exists and is readable",
+      "all three sbatch scripts passed bash -n syntax checks"
+    ],
+    "figures": [],
+    "tables": [
+      "analysis/campaigns/2026-06-01_overnight_jsalt2_followup/README.md"
+    ]
+  },
+  "notes": [
+    "The no-h sweep now points at the repaired autonomous campaign run_20260526T133003Z_5943a549 instead of the earlier failed-at-inspect lineage.",
+    "Absolute Slurm log paths were used in all three scripts to avoid the prior relative-log-path issue.",
+    "Submission was attempted, but TACC interactive password/token prompts blocked unattended SSH from this session. No job IDs were returned."
+  ]
+}

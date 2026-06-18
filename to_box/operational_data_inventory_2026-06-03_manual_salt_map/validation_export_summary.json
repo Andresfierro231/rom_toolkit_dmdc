@@ -1,0 +1,22 @@
+{
+  "outdir": "outputs/tamu_validation_export_20260603_manual_salt_map",
+  "inventory_root": "../tamu_box_loop_data/Loop Operational Data",
+  "inventory_csv": null,
+  "source_tables": [
+    "../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv",
+    "../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv",
+    "../physor2026_andrew/Validation_Data/validation_data.csv"
+  ],
+  "profiles": [
+    "fluid_normalized",
+    "physor_wide"
+  ],
+  "n_inventory_candidates": 43,
+  "n_normalized_cases": 16,
+  "n_nearest_fit_rows": 28,
+  "n_consistency_rows": 16,
+  "n_consistency_mismatches": 0,
+  "n_office_workbook_rows": 14,
+  "n_office_workbook_blocked": 8,
+  "inventory_generated": true
+}

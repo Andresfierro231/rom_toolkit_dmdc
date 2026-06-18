@@ -1,0 +1,70 @@
+campaign_id: 2026-05-26_jsalt2_autonomous_repair_and_tamu_review
+created_at_local: 2026-05-26T08:24:40-05:00
+research_question: >
+  Can the JSALT2 autonomous/no-input campaign now complete end to end, and what
+  do the repaired run plus overnight sweep outputs imply about keeping h and
+  about prioritizing TAMU validation-case review?
+git:
+  repo_root: /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis
+  branch: main
+  commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+  commit_short: 93d9e59
+  dirty: true
+inputs:
+  input_files:
+    - src/dmdc/resampling.py
+    - src/dmdc/cli.py
+    - src/dmdc/config.py
+    - src/dmdc/campaign.py
+    - analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_autonomous_no_h.toml
+    - outputs/overnight_sweeps/jsalt2_no_h_20260525/best_model_recommendation.txt
+    - outputs/overnight_sweeps/jsalt2_with_h_20260525/best_model_recommendation.txt
+    - outputs/tamu_validation_export_overnight_20260525/nearest_fit_suggestions.csv
+    - outputs/tamu_validation_export_overnight_20260525/inventory_validation_candidates.csv
+  validation_files:
+    - outputs/tamu_validation_export/validation_export_summary.json
+    - outputs/tamu_validation_export_overnight_20260525/validation_export_summary.json
+    - outputs/tamu_validation_export/inventory_validation_candidates.csv
+    - outputs/tamu_validation_export_overnight_20260525/inventory_validation_candidates.csv
+commands:
+  - command: env PYTHONPATH=src .venv/bin/python -m pytest tests/test_adaptive_variable_dt.py tests/test_inspection_resampling.py tests/test_registry_campaign_archive_schema.py
+    status: passed
+  - command: env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_autonomous_no_h.toml --dry-run
+    status: passed
+  - command: env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_autonomous_no_h.toml
+    status: passed
+outputs:
+  report_dir: analysis/reports/2026-05-26_jsalt2_autonomous_repair_and_tamu_review
+  reports:
+    - analysis/reports/2026-05-26_jsalt2_autonomous_repair_and_tamu_review/CHECKPOINT.md
+    - analysis/reports/2026-05-26_jsalt2_autonomous_repair_and_tamu_review/MANIFEST.yaml
+  tables:
+    - outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260526T133003Z_5943a549/campaign_step_index.csv
+    - outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260526T133003Z_5943a549/workflow_outputs/adaptive_fit/adaptive_dmdc_summary.json
+    - outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260526T133003Z_5943a549/workflow_outputs/compare/model_comparison.csv
+    - outputs/tamu_validation_export_overnight_20260525/nearest_fit_suggestions.csv
+    - outputs/tamu_validation_export_overnight_20260525/inventory_validation_candidates.csv
+metrics:
+  pytest_targeted_pass_count: 17
+  autonomous_campaign_completed_steps: 5
+  autonomous_compare_best_model: pod_dmdc
+  autonomous_compare_best_test_rollout_rmse: 0.37289603980550534
+  autonomous_compare_adaptive_dmdc_test_rollout_rmse: 0.7727588071114045
+  stable_no_h_sweep_test_rollout_rmse: 0.17075270970574585
+  stable_with_h_sweep_test_rollout_rmse: 0.17407191740679362
+  tamu_daytime_inventory_candidates: 54
+  tamu_daytime_normalized_cases: 8
+  tamu_daytime_nearest_fit_rows: 40
+  tamu_overnight_inventory_candidates: 54
+  tamu_overnight_normalized_cases: 8
+  tamu_overnight_nearest_fit_rows: 40
+known_issues:
+  - Human review is still required before any TAMU advisory nearest-fit candidate is adopted as a validation reference.
+notes:
+  - The 2026-05-26 autonomous rerun cleared the original inspect-data empty-input crash.
+  - The campaign CLI now returns a non-zero exit status when a non-dry-run campaign reports failed steps.
+  - The adaptive-fit config path now honors output.adaptive_outdir and campaign-derived adaptive output routing.
+  - The daytime and overnight TAMU candidate inventories matched; the summary JSON diff changed only the outdir string.
+next_actions:
+  - Resolve the h-input policy for the default JSALT2 study configuration.
+  - Review the shortlisted real TAMU candidate cases manually before promoting any to validation references.

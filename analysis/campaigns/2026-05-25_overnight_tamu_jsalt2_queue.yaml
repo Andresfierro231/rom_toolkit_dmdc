@@ -1,0 +1,65 @@
+{
+  "campaign_id": "2026-05-25_overnight_tamu_jsalt2_queue",
+  "created_at_local": "2026-05-25T00:00:00-05:00",
+  "name": "overnight_tamu_jsalt2_queue",
+  "research_question": "Use the overnight window to rerun the new TAMU workflow in unique output roots, rerun the JSALT2 proof-of-concept under the append-only campaign layout, and queue two JSALT2 model-selection follow-up variants.",
+  "status": "submitted_and_completed",
+  "input_files": [
+    "studies/tamu_loop_data_onboarding/study_config.toml",
+    "studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_adaptive_with_h.toml",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_autonomous_no_h.toml",
+    "../tamu_loop_data_25_mayo/Loop Operational Data",
+    "../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs",
+    "../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv",
+    "../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv"
+  ],
+  "validation_files": [
+    "outputs/tamu_validation_export/validation_cases.csv",
+    "outputs/tamu_validation_export/validation_data.csv",
+    "outputs/tamu_validation_export/nearest_fit_suggestions.csv"
+  ],
+  "run_plan": {
+    "description": "Submit six overnight Slurm jobs: two TAMU data-prep reruns in unique outdirs, three JSALT2 campaign runs, and one full regression pass.",
+    "parameters": {
+      "partition": "NuclearEnergy",
+      "account": "ASC23046",
+      "jobs_prepared": 6
+    },
+    "planned_runs": [
+      "sbatch -A ASC23046 -t 01:00:00 analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/tamu_inventory_refresh.sbatch",
+      "sbatch -A ASC23046 -t 01:00:00 analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/tamu_validation_export_refresh.sbatch",
+      "sbatch -A ASC23046 -t 04:00:00 analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_current_campaign.sbatch",
+      "sbatch -A ASC23046 -t 04:00:00 analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_adaptive_with_h.sbatch",
+      "sbatch -A ASC23046 -t 04:00:00 analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_autonomous_no_h.sbatch",
+      "sbatch -A ASC23046 -t 03:00:00 analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/full_pytest_regression.sbatch"
+    ]
+  },
+  "analysis": {
+    "metrics": [
+      "job 3185496 completed in 00:00:10",
+      "job 3185501 completed in 00:00:04",
+      "job 3185499 completed in 00:00:20",
+      "job 3185500 completed in 00:00:23",
+      "job 3185498 wrapper completed in 00:00:10 but the campaign stopped at inspect",
+      "job 3185497 completed in 00:00:36",
+      "overnight TAMU export counts: 54 inventory candidates, 8 normalized cases, 40 nearest-fit rows",
+      "JSALT2 current campaign best test RMSE: pod_dmdc = 0.33081936458561695",
+      "JSALT2 adaptive-with-h campaign best test RMSE: pod_dmdc = 0.33081936458561695; adaptive_dmdc = 0.7532141219005815"
+    ],
+    "figures": [],
+    "tables": [
+      "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/README.md",
+      "outputs/tamu_inventory_overnight_20260525/case_inventory.csv",
+      "outputs/tamu_validation_export_overnight_20260525/validation_cases.csv",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_poc/run_20260525T230237Z_0842b2f6/workflow_outputs/compare/model_comparison.csv",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_adaptive_with_h/run_20260525T230237Z_d2c7a1f2/workflow_outputs/compare/model_comparison.csv"
+      ]
+  },
+  "notes": [
+    "Submitted on Lonestar6 login host login3.ls6.tacc.utexas.edu using project ASC23046 and queue NuclearEnergy.",
+    "The two JSALT2 variants answer open questions from the prior checkpoint about adaptive-time baselines and whether h should remain an input.",
+    "The autonomous/no-h campaign exposed an inspect-data bug when input_cols is empty: KeyError on the expected input variance table columns.",
+    "sacct final states: 3185496 COMPLETED, 3185501 COMPLETED, 3185499 COMPLETED, 3185500 COMPLETED, 3185498 COMPLETED (wrapper only; campaign step failure inside), 3185497 COMPLETED."
+  ]
+}

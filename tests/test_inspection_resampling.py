@@ -21,6 +21,13 @@ def test_resample_all_cases():
     assert out.loc[1, "x"] == 1.0
 
 
+def test_inspect_table_with_no_input_columns_writes_empty_variance_schema():
+    df = pd.DataFrame({"case_id": ["a", "a", "a"], "time": [0.0, 1.0, 2.0], "x": [0.0, 2.0, 4.0]})
+    result = inspect_table(df, time_col="time", case_col="case_id", state_cols=["x"], input_cols=[])
+    assert result.input_variance.empty
+    assert result.input_variance.columns.tolist() == ["column", "variance", "std", "min", "max"]
+
+
 def test_cli_inspect_and_resample(tmp_path: Path):
     data = tmp_path / "data.csv"
     inspect_out = tmp_path / "inspection"
@@ -65,3 +72,34 @@ outdir = "{outdir}"
     input_variance = pd.read_csv(outdir / "input_variance.csv")
     assert state_variance["column"].tolist() == ["x"]
     assert input_variance["column"].tolist() == ["u"]
+
+
+def test_cli_inspect_config_supports_empty_input_columns(tmp_path: Path):
+    data = tmp_path / "data.csv"
+    outdir = tmp_path / "inspection_no_inputs"
+    config = tmp_path / "inspect_no_inputs.toml"
+    pd.DataFrame(
+        {
+            "case_id": ["a", "a", "a"],
+            "time": [0.0, 1.0, 2.0],
+            "x": [0.0, 2.0, 4.0],
+        }
+    ).to_csv(data, index=False)
+    config.write_text(
+        f'''
+[data]
+path = "{data}"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x"]
+input_cols = []
+
+[output]
+outdir = "{outdir}"
+'''.strip(),
+        encoding="utf-8",
+    )
+    main(["inspect-data", "--config", str(config)])
+    input_variance = pd.read_csv(outdir / "input_variance.csv")
+    assert input_variance.empty
+    assert input_variance.columns.tolist() == ["column", "variance", "std", "min", "max"]

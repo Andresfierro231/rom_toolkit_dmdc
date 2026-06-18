@@ -69,6 +69,14 @@ from .import_workflow import run_import_workflow
 from .operator_schematic import build_sensor_status_table, write_schematic_status_outputs
 from .archive_benchmark import ArchiveBenchmarkConfig, ArchiveBenchmarkResult, run_archive_benchmark
 from .hpc_workflows import HPCPlanResult, write_hpc_workflow_plan
+from .tamu_data import (
+    TamuInventoryResult,
+    TamuValidationExportResult,
+    build_tamu_inventory,
+    build_physor_wide_table,
+    export_tamu_validation_artifacts,
+    normalize_wide_validation_sources,
+)
 from .live_dashboard import (
     LiveDashboardSummary,
     ArchiveDashboardSummary,
@@ -185,6 +193,12 @@ __all__ = [
     "run_archive_benchmark",
     "HPCPlanResult",
     "write_hpc_workflow_plan",
+    "TamuInventoryResult",
+    "TamuValidationExportResult",
+    "build_tamu_inventory",
+    "build_physor_wide_table",
+    "export_tamu_validation_artifacts",
+    "normalize_wide_validation_sources",
     "read_archive_dashboard_tables",
     "summarize_archive_dashboard",
     "write_archive_dashboard_summary",

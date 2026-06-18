@@ -34,11 +34,50 @@ dmdc guide
 WORKFLOWS.md                         # one-command workflow recipes
 COMMANDS.md                          # command index and when to use each command
 examples/real_data_onboarding/README.md
+studies/tamu_loop_data_onboarding/README.md
 docs/navigation/workflow_map.md
 docs/navigation/choose_your_path.md
+docs/repository_capabilities_layout_and_solvers.md
 ```
 
 The repo is intentionally modular. You can run only import/inspection, only offline comparison, only live replay, only archive summaries, or only dashboard/report generation. The central config is the study contract; individual commands read only the sections they need.
+
+For newly downloaded TAMU loop folders, use the dedicated intake path before modeling:
+
+```bash
+dmdc tamu-inventory --root ../tamu_loop_data/Loop\ Operational\ Data
+```
+
+If the local raw-data mirror has not been renamed yet, the older scratch path still works:
+
+```bash
+dmdc tamu-inventory --root ../tamu_loop_data_25_mayo/Loop\ Operational\ Data
+```
+
+Use the repositories with a hard split:
+
+- `tamu_loop_data/` is the pull-only raw-data mirror from Box.
+- `dmdc-analysis/` is where inventories, plots, notes, reports, and other derived outputs are created.
+- `dmdc-analysis/to_box/` is the staging area for outbound artifacts that may be uploaded to a separate Box outputs folder.
+
+Critical rule:
+
+- Never upload anything from `dmdc-analysis` into the raw-data Box folder that feeds `tamu_loop_data/`.
+- The raw-data Box folder is intake only.
+
+Recovery and Box-share-out instructions live in:
+
+```text
+docs/workflows/tamu_loop_data_recovery.md
+```
+
+The main helper commands are:
+
+```bash
+python tools/studies/init_tamu_loop_data_repo.py --target-root ../tamu_loop_data
+python tools/box/upload_to_tamu_flow_loop_box.py --dry-run
+python tools/box/upload_to_tamu_flow_loop_box.py --execute
+```
 
 ## Release-readiness files
 

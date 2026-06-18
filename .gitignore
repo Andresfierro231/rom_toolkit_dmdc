@@ -41,8 +41,14 @@ data/private/
 data/processed/
 
 
+# Study folders are usually local-only, but keep the committed JSALT2 POC scaffold.
+/studies/*
+!/studies/jsalt2_moose_mesh_convergence_poc/
+!/studies/jsalt2_moose_mesh_convergence_poc/**
+/.agents/tools/studies/
+/tools/studies/
+
 # Excluding images
-studies/
 *.log
 *.out
 *.err

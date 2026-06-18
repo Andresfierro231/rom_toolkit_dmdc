@@ -1,0 +1,135 @@
+generated_at: '2026-06-02T16:06:58-05:00'
+tool: tools/reporting/build_paper_support_package.py
+git:
+  repo_root: /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis
+  timestamp_local: '2026-06-02T16:06:58-05:00'
+  branch: main
+  commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+  commit_short: 93d9e59
+  dirty: true
+  status_short:
+  - M .agents/README.md
+  - ' M .gitignore'
+  - ' M AGENTS.md'
+  - ' M COMMANDS.md'
+  - ' M README.md'
+  - ' M WORKFLOWS.md'
+  - ' M configs/templates/central_campaign_config.toml'
+  - ' M docs/analysis_menu.md'
+  - ' M docs/navigation/choose_your_path.md'
+  - ' M docs/navigation/workflow_map.md'
+  - ' M docs/workflows/README.md'
+  - ' M docs/workflows/research_provenance_workflow.md'
+  - ' M examples/real_data_onboarding/scripts/_common.sh'
+  - ' M examples/real_data_onboarding/scripts/run_01_import.sh'
+  - ' M examples/real_data_onboarding/scripts/run_02_inspect.sh'
+  - ' M examples/real_data_onboarding/scripts/run_03_adaptive_fit.sh'
+  - ' M examples/real_data_onboarding/scripts/run_04_pod_dmdc.sh'
+  - ' M examples/real_data_onboarding/scripts/run_05_compare_models.sh'
+  - ' M examples/real_data_onboarding/scripts/run_06_validate_unseen_cases.sh'
+  - ' M examples/real_data_onboarding/scripts/run_07_live_replay_monitor.sh'
+  - ' M examples/real_data_onboarding/scripts/run_08_live_replay_adapt.sh'
+  - ' M examples/real_data_onboarding/scripts/run_09_live_dashboard.sh'
+  - ' M examples/real_data_onboarding/scripts/run_10_operator_report.sh'
+  - ' M scripts/workflows/run_campaign_local.sh'
+  - ' M src/dmdc/__init__.py'
+  - ' M src/dmdc/campaign.py'
+  - ' M src/dmdc/cli.py'
+  - ' M src/dmdc/command_catalog.py'
+  - ' M src/dmdc/config.py'
+  - ' M src/dmdc/resampling.py'
+  - ' M tests/test_adaptive_variable_dt.py'
+  - ' M tests/test_hardening_cli_packaging.py'
+  - ' M tests/test_inspection_resampling.py'
+  - ' M tests/test_registry_campaign_archive_schema.py'
+  - ?? .agents/skills/README.md
+  - ?? .agents/tools/README.md
+  - ?? .agents/tools/box/
+  - ?? .agents/tools/reporting/build_paper_support_package.py
+  - ?? TODO_2026-05-29_tamu_box_followup.md
+  - ?? TODO_2026-06-01_box_and_overnight_followup.md
+  - ?? TODO_2026-06-02_jsalt2_tamu_followup.md
+  - ?? analysis/campaigns/2026-05-22_jsalt2_external_analysis_poc.yaml
+  - ?? analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue.yaml
+  - ?? analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/
+  - ?? analysis/campaigns/2026-06-01_overnight_jsalt2_followup.yaml
+  - ?? analysis/campaigns/2026-06-01_overnight_jsalt2_followup/
+  - ?? analysis/reports/2026-05-22_jsalt2_external_analysis_poc/
+  - ?? analysis/reports/2026-05-25_overnight_tamu_jsalt2_queue/
+  - ?? analysis/reports/2026-05-26_jsalt2_autonomous_repair_and_tamu_review/
+  - ?? analysis/reports/2026-05-26_tamu_loop_data_inventory_report/
+  - ?? analysis/reports/2026-06-01_overnight_jsalt2_followup/
+  - ?? analysis/reports/2026-06-02_jsalt2_sweep_submission_and_repo_overview/
+  - ?? analysis/reports/2026-06-02_jsalt2_tamu_followup/
+  - ?? analysis/reports/2026-06-02_paper_support_package/
+  - ?? docs/repository_capabilities_layout_and_solvers.md
+  - ?? docs/workflows/jsalt2_external_analysis_poc.md
+  - ?? docs/workflows/paper_support_workflow.md
+  - ?? docs/workflows/tamu_data_intake_and_validation.md
+  - ?? docs/workflows/tamu_loop_data_recovery.md
+  - ?? src/dmdc/tamu_data.py
+  - ?? studies/
+  - ?? templates/tamu_loop_data_repo/
+  - ?? tests/test_tamu_inventory_and_validation.py
+  - ?? tests/test_tamu_study_workflow.py
+  - ?? to_box/
+  - ?? tools/README.md
+  - ?? tools/box/
+  - ?? tools/reporting/build_paper_support_package.py
+  diff_name_status:
+  - "M\t.agents/README.md"
+  - "M\t.gitignore"
+  - "M\tAGENTS.md"
+  - "M\tCOMMANDS.md"
+  - "M\tREADME.md"
+  - "M\tWORKFLOWS.md"
+  - "M\tconfigs/templates/central_campaign_config.toml"
+  - "M\tdocs/analysis_menu.md"
+  - "M\tdocs/navigation/choose_your_path.md"
+  - "M\tdocs/navigation/workflow_map.md"
+  - "M\tdocs/workflows/README.md"
+  - "M\tdocs/workflows/research_provenance_workflow.md"
+  - "M\texamples/real_data_onboarding/scripts/_common.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_01_import.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_02_inspect.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_03_adaptive_fit.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_04_pod_dmdc.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_05_compare_models.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_06_validate_unseen_cases.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_07_live_replay_monitor.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_08_live_replay_adapt.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_09_live_dashboard.sh"
+  - "M\texamples/real_data_onboarding/scripts/run_10_operator_report.sh"
+  - "M\tscripts/workflows/run_campaign_local.sh"
+  - "M\tsrc/dmdc/__init__.py"
+  - "M\tsrc/dmdc/campaign.py"
+  - "M\tsrc/dmdc/cli.py"
+  - "M\tsrc/dmdc/command_catalog.py"
+  - "M\tsrc/dmdc/config.py"
+  - "M\tsrc/dmdc/resampling.py"
+  - "M\ttests/test_adaptive_variable_dt.py"
+  - "M\ttests/test_hardening_cli_packaging.py"
+  - "M\ttests/test_inspection_resampling.py"
+  - "M\ttests/test_registry_campaign_archive_schema.py"
+inputs:
+  jsalt2_with_h_compare_dir: outputs/analysis_followups/jsalt2_compare_equiv_with_h_20260602
+  jsalt2_no_h_compare_dir: outputs/analysis_followups/jsalt2_compare_equiv_no_h_20260602
+  jsalt2_with_h_sweep_dir: outputs/overnight_sweeps/jsalt2_with_h_pair_20260601
+  jsalt2_no_h_sweep_dir: outputs/overnight_sweeps/jsalt2_no_h_repaired_20260601
+  tamu_validation_export_dir: outputs/tamu_validation_export_20260602_filtered
+  tamu_validation_catalog_dir: outputs/tamu_validation_catalog_20260602_loop_sources_v1
+  prior_tamu_validation_export_dir: outputs/tamu_validation_export_overnight_20260525
+outputs:
+  claim_matrix_csv: analysis/reports/2026-06-02_paper_support_package/claim_matrix.csv
+  claim_matrix_md: analysis/reports/2026-06-02_paper_support_package/claim_matrix.md
+  figure_manifest_csv: analysis/reports/2026-06-02_paper_support_package/figure_manifest.csv
+  captions_md: analysis/reports/2026-06-02_paper_support_package/captions.md
+  figures_dir: analysis/reports/2026-06-02_paper_support_package/figures
+  data_dir: analysis/reports/2026-06-02_paper_support_package/data
+command: python tools/reporting/build_paper_support_package.py --outdir analysis/reports/2026-06-02_paper_support_package
+  --jsalt2-with-h-compare-dir outputs/analysis_followups/jsalt2_compare_equiv_with_h_20260602
+  --jsalt2-no-h-compare-dir outputs/analysis_followups/jsalt2_compare_equiv_no_h_20260602
+  --jsalt2-with-h-sweep-dir outputs/overnight_sweeps/jsalt2_with_h_pair_20260601 --jsalt2-no-h-sweep-dir
+  outputs/overnight_sweeps/jsalt2_no_h_repaired_20260601 --tamu-validation-export-dir
+  outputs/tamu_validation_export_20260602_filtered --tamu-validation-catalog-dir outputs/tamu_validation_catalog_20260602_loop_sources_v1
+  --prior-tamu-validation-export-dir outputs/tamu_validation_export_overnight_20260525

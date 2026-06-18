@@ -1,0 +1,54 @@
+{
+  "campaign_id": "2026-05-22_jsalt2_external_analysis_poc",
+  "created_at_local": "2026-05-22T11:48:52-05:00",
+  "name": "jsalt2_external_analysis_poc",
+  "research_question": "Proof-of-concept onboarding of recent JSALT2 external analysis outputs into the dmdc import, inspection, POD-DMDc, DMDc comparison, and report workflow.",
+  "status": "executed",
+  "input_files": [
+    "studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+    "studies/jsalt2_moose_mesh_convergence_poc/README.md",
+    "docs/workflows/jsalt2_external_analysis_poc.md",
+    "../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs"
+  ],
+  "validation_files": [],
+  "run_plan": {
+    "description": "Executed JSALT2 external-analysis import -> inspect -> pod_dmdc -> compare proof-of-concept, plus representative-run POD/SVD and QR sensor ranking.",
+    "parameters": {
+      "config": "studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "campaign_name": "jsalt2_moose_mesh_convergence_poc",
+      "dry_run_verified": true,
+      "max_files_initial": 11,
+      "candidate_input_cols": [
+        "h"
+      ]
+    },
+    "planned_runs": [
+      "dmdc campaign --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml --steps import inspect pod_dmdc compare",
+      "dmdc pod --data ../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs/jsalt2_meshconv_reference_nm032_ord2/jsalt2_meshconv_reference_nm032_ord2_csv.csv --state-cols TP1 TP2 TP3 TP6 massFlowRate --time-col time --rank 0.999 --center --scale --outdir outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_pod --plots",
+      "dmdc select-sensors --data ../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs/jsalt2_meshconv_reference_nm032_ord2/jsalt2_meshconv_reference_nm032_ord2_csv.csv --state-cols TP1 TP2 TP3 TP6 massFlowRate --time-col time --rank 0.999 --n-sensors 3 --center --scale --outdir outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr --plots"
+    ]
+  },
+  "analysis": {
+    "metrics": [
+      "pod_dmdc test_rollout_rmse = 0.33081936458561695",
+      "pod_dmdc spectral_radius = 0.9950743257826973",
+      "representative QR-selected states = TP2, TP3, massFlowRate"
+    ],
+    "figures": [
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/model_comparison.pdf",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_pod/singular_values.pdf",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr/reconstruction_error_vs_sensors.pdf"
+    ],
+    "tables": [
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/model_comparison.csv",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr/sensor_ranking.csv"
+    ]
+  },
+  "notes": [
+    "Dry-run campaign artifacts were generated under outputs/campaigns/jsalt2_moose_mesh_convergence_poc/.",
+    "Actual execution used the full current maintained collection with max_files = 11.",
+    "The folder importer required the pattern change from *_csv.csv to */*_csv.csv because source CSVs live one directory under outputs/.",
+    "pod-dmdc output routing required a config fix so output.pod_dmdc_outdir is honored.",
+    "Inspection confirmed nonuniform dt across all 11 cases, but all cases were strictly increasing and reached time_end = 850.0."
+  ]
+}

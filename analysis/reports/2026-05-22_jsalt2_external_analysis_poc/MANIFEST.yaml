@@ -1,0 +1,175 @@
+{
+  "campaign_id": "2026-05-22_jsalt2_external_analysis_poc",
+  "created_at_local": "2026-05-22T11:49:08-05:00",
+  "research_question": "Proof-of-concept onboarding of recent JSALT2 external analysis outputs into the dmdc import, inspection, POD-DMDc, DMDc comparison, and report workflow.",
+  "git": {
+    "repo_root": "/scratch/09748/andresfierro231/projects_scratch/dmdc-analysis",
+    "timestamp_local": "2026-05-22T11:49:08-05:00",
+    "branch": "main",
+    "commit": "93d9e59391f1ce8de3472d55f1e316723e976998",
+    "commit_short": "93d9e59",
+    "dirty": true,
+    "status_short": [
+      "M .agents/README.md",
+      " M COMMANDS.md",
+      " M WORKFLOWS.md",
+      " M configs/templates/central_campaign_config.toml",
+      " M docs/navigation/choose_your_path.md",
+      " M docs/navigation/workflow_map.md",
+      " M docs/workflows/README.md",
+      " M docs/workflows/research_provenance_workflow.md",
+      " M examples/real_data_onboarding/scripts/_common.sh",
+      " M examples/real_data_onboarding/scripts/run_01_import.sh",
+      " M examples/real_data_onboarding/scripts/run_02_inspect.sh",
+      " M examples/real_data_onboarding/scripts/run_03_adaptive_fit.sh",
+      " M examples/real_data_onboarding/scripts/run_04_pod_dmdc.sh",
+      " M examples/real_data_onboarding/scripts/run_05_compare_models.sh",
+      " M examples/real_data_onboarding/scripts/run_06_validate_unseen_cases.sh",
+      " M examples/real_data_onboarding/scripts/run_07_live_replay_monitor.sh",
+      " M examples/real_data_onboarding/scripts/run_08_live_replay_adapt.sh",
+      " M examples/real_data_onboarding/scripts/run_09_live_dashboard.sh",
+      " M examples/real_data_onboarding/scripts/run_10_operator_report.sh",
+      " M scripts/workflows/run_campaign_local.sh",
+      " M src/dmdc/campaign.py",
+      " M src/dmdc/cli.py",
+      "?? .agents/skills/README.md",
+      "?? .agents/tools/README.md",
+      "?? analysis/campaigns/2026-05-22_jsalt2_external_analysis_poc.yaml",
+      "?? analysis/reports/2026-05-22_jsalt2_external_analysis_poc/",
+      "?? docs/workflows/jsalt2_external_analysis_poc.md",
+      "?? tools/README.md"
+    ],
+    "diff_name_status": [
+      "M\t.agents/README.md",
+      "M\tCOMMANDS.md",
+      "M\tWORKFLOWS.md",
+      "M\tconfigs/templates/central_campaign_config.toml",
+      "M\tdocs/navigation/choose_your_path.md",
+      "M\tdocs/navigation/workflow_map.md",
+      "M\tdocs/workflows/README.md",
+      "M\tdocs/workflows/research_provenance_workflow.md",
+      "M\texamples/real_data_onboarding/scripts/_common.sh",
+      "M\texamples/real_data_onboarding/scripts/run_01_import.sh",
+      "M\texamples/real_data_onboarding/scripts/run_02_inspect.sh",
+      "M\texamples/real_data_onboarding/scripts/run_03_adaptive_fit.sh",
+      "M\texamples/real_data_onboarding/scripts/run_04_pod_dmdc.sh",
+      "M\texamples/real_data_onboarding/scripts/run_05_compare_models.sh",
+      "M\texamples/real_data_onboarding/scripts/run_06_validate_unseen_cases.sh",
+      "M\texamples/real_data_onboarding/scripts/run_07_live_replay_monitor.sh",
+      "M\texamples/real_data_onboarding/scripts/run_08_live_replay_adapt.sh",
+      "M\texamples/real_data_onboarding/scripts/run_09_live_dashboard.sh",
+      "M\texamples/real_data_onboarding/scripts/run_10_operator_report.sh",
+      "M\tscripts/workflows/run_campaign_local.sh",
+      "M\tsrc/dmdc/campaign.py",
+      "M\tsrc/dmdc/cli.py"
+    ]
+  },
+  "inputs": {
+    "input_files": [
+      "studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "studies/jsalt2_moose_mesh_convergence_poc/README.md",
+      "docs/workflows/jsalt2_external_analysis_poc.md",
+      "../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs"
+    ],
+    "validation_files": [],
+    "campaign_config": "analysis/campaigns/2026-05-22_jsalt2_external_analysis_poc.yaml"
+  },
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile src/dmdc/cli.py src/dmdc/campaign.py tools/_agents_bridge.py",
+      "status": "recorded"
+    },
+    {
+      "command": "bash studies/jsalt2_moose_mesh_convergence_poc/scripts/run_01_campaign_dry_run.sh",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli campaign --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml --dry-run",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli import-data --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli inspect-data --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli pod-dmdc --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli compare --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli pod --data ../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs/jsalt2_meshconv_reference_nm032_ord2/jsalt2_meshconv_reference_nm032_ord2_csv.csv --state-cols TP1 TP2 TP3 TP6 massFlowRate --time-col time --rank 0.999 --center --scale --outdir outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_pod --plots",
+      "status": "recorded"
+    },
+    {
+      "command": ".venv/bin/python -m dmdc.cli select-sensors --data ../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs/jsalt2_meshconv_reference_nm032_ord2/jsalt2_meshconv_reference_nm032_ord2_csv.csv --state-cols TP1 TP2 TP3 TP6 massFlowRate --time-col time --rank 0.999 --n-sensors 3 --center --scale --outdir outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr --plots",
+      "status": "recorded"
+    }
+  ],
+  "scripts_used": [
+    "tools/studies/init_campaign.py",
+    "tools/reporting/make_manifest.py",
+    "tools/reporting/make_checkpoint.py",
+    "studies/jsalt2_moose_mesh_convergence_poc/scripts/run_01_campaign_dry_run.sh"
+  ],
+  "outputs": {
+    "report_dir": "analysis/reports/2026-05-22_jsalt2_external_analysis_poc",
+    "runtime_rows_dir": "analysis/runtime_rows",
+    "runtimes_master": "analysis/runtimes_master.csv",
+    "figures": [
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/model_comparison.pdf",
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/report/model_comparison.pdf",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_pod/singular_values.pdf",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr/reconstruction_error_vs_sensors.pdf"
+    ],
+    "tables": [
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_poc/campaign_step_index.csv",
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/model_comparison.csv",
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/stability_dashboard.csv",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr/sensor_ranking.csv",
+      "outputs/jsalt2_moose_mesh_convergence_poc/representative_reference_qr/reconstruction_error_vs_sensors.csv"
+    ],
+    "reports": [
+      "analysis/reports/2026-05-22_jsalt2_external_analysis_poc/CHECKPOINT.md",
+      "analysis/reports/2026-05-22_jsalt2_external_analysis_poc/CHANGELOG.md",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_poc/campaign_plan.md",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_poc/next_steps.md",
+      "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/report/report.tex"
+    ]
+  },
+  "metrics": {
+    "imported_rows": 9544,
+    "n_cases": 11,
+    "best_model": "pod_dmdc",
+    "best_model_test_rollout_rmse": 0.33081936458561695,
+    "best_model_spectral_radius": 0.9950743257826973,
+    "representative_qr_selected_states": [
+      "TP2",
+      "TP3",
+      "massFlowRate"
+    ]
+  },
+  "known_issues": [
+    "All imported cases have nonuniform dt, so the compare results should be interpreted alongside the adaptive-time warning rather than as a fixed-step-only conclusion.",
+    "The representative QR ranking used centered and scaled states to balance the mixed temperature/flow magnitudes."
+  ],
+  "notes": [
+    "Actual execution imported 9544 rows across 11 cases.",
+    "The folder importer required the pattern change from *_csv.csv to */*_csv.csv.",
+    "pod-dmdc output routing required a config fix so output.pod_dmdc_outdir is honored.",
+    "Best held-out model by test RMSE was pod_dmdc.",
+    "Representative QR-selected states were TP2, TP3, and massFlowRate."
+  ],
+  "next_actions": [
+    "Inspect outputs/jsalt2_moose_mesh_convergence_poc/model_comparison/stability_warnings.txt and uncertainty_summary.csv.",
+    "Decide whether to run adaptive-fit as the time-aware baseline for the same 11-case collection.",
+    "Decide whether h remains a meaningful input for DMDc or whether an autonomous rerun with input_cols = [] is more defensible.",
+    "Compile the LaTeX report if a local TeX toolchain is desired."
+  ]
+}

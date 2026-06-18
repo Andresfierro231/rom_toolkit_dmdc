@@ -327,7 +327,7 @@ def flatten_pod_dmdc_config(config: dict[str, Any]) -> dict[str, Any]:
         "center": bool(pod.get("center", preprocessing.get("center", True))),
         "scale": bool(pod.get("scale", preprocessing.get("scale", False))),
         "plots": bool(output.get("plots", config.get("plots", False))),
-        "outdir": output.get("outdir", config.get("outdir", "outputs/pod_dmdc")),
+        "outdir": output.get("pod_dmdc_outdir", output.get("outdir", config.get("outdir", "outputs/pod_dmdc"))),
     }
 
 
@@ -359,6 +359,26 @@ def flatten_validate_config(config: dict[str, Any]) -> dict[str, Any]:
         "plots": bool(output.get("plots", config.get("plots", False))),
         "outdir": validation.get("outdir", output.get("validation_outdir", output.get("outdir", "outputs/validation"))),
     }
+
+
+def flatten_adaptive_fit_config(config: dict[str, Any]) -> dict[str, Any]:
+    """Flatten config keys for the ``adaptive-fit`` command."""
+
+    base = flatten_fit_config(config)
+    adaptive = config.get("adaptive", {}) or {}
+    output = config.get("output", {}) or {}
+    if not isinstance(adaptive, dict) or not isinstance(output, dict):
+        raise ValueError("Sections 'adaptive' and 'output' must be mappings.")
+    base.update(
+        {
+            "alpha": adaptive.get("alpha", config.get("alpha", base.get("alpha", 1e-8))),
+            "outdir": adaptive.get(
+                "outdir",
+                output.get("adaptive_outdir", output.get("outdir", config.get("outdir", "outputs/adaptive_dmdc"))),
+            ),
+        }
+    )
+    return base
 
 
 

@@ -1,0 +1,24 @@
+name,kind,relative_path,is_dir,n_immediate_children,n_immediate_dirs,n_immediate_files,n_recursive_dirs,n_recursive_files,immediate_subdirs,immediate_files
+09222025.zip,archive_zip,09222025.zip,False,,,,,,,
+2024_03_13,directory,2024_03_13,True,4.0,3.0,1.0,3.0,19.0,1;2;3,TestFile03132024.txt
+2024_05_04,directory,2024_05_04,True,8.0,7.0,1.0,7.0,43.0,1;2;3;4;5;6;7,TestFile05042024.txt
+2024_09_30,directory,2024_09_30,True,11.0,0.0,11.0,0.0,11.0,,09302024_NC1_TransientWorkspace.mat;09302024_NC2_TransientWorkspace.mat;09302024_NC3_TransientWorkspace.mat;09302024_NC4_TransientWorkspace.mat;09302024_NC5_TransientWorkspace.mat;09302024_NC6_TransientWorkspace.mat;09302024_NC7_TransientWorkspace.mat;09302024_NC8_TransientWorkspace.mat;09302024_NC9_TransientWorkspace.mat;Bubble Data.xlsx;TestFile09302024.txt
+2025_01_01_(ExampleFolder),directory,2025_01_01_(ExampleFolder),True,3.0,2.0,1.0,2.0,13.0,0001;0002,Notes.txt
+2025_03_19,directory,2025_03_19,True,8.0,7.0,1.0,7.0,43.0,1;2;3;4;5;6;7,03192025_Water1.txt
+2025_05_20,directory,2025_05_20,True,5.0,4.0,1.0,4.0,25.0,1;2;3;4,TestFile05202025.txt
+2025_06_19,directory,2025_06_19,True,22.0,17.0,5.0,17.0,124.0,1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9,PIVuncertainty_Mag.csv;PIVuncertainty_U.csv;PIVuncertainty_V.csv;Summaries.txt;TestFile06192025.txt
+2025_12_30,directory,2025_12_30,True,6.0,5.0,1.0,5.0,11.0,1;2;3;4;5,TestFile12302025.txt
+FiberOptic_File_Description.txt,reference_doc,FiberOptic_File_Description.txt,False,,,,,,,
+FullTransient_03132024.zip,archive_zip,FullTransient_03132024.zip,False,,,,,,,
+FullTransient_03192025.zip,archive_zip,FullTransient_03192025.zip,False,,,,,,,
+FullTransient_05042024.zip,archive_zip,FullTransient_05042024.zip,False,,,,,,,
+FullTransient_05202025.zip,archive_zip,FullTransient_05202025.zip,False,,,,,,,
+JSON_Files_Description.txt,reference_doc,JSON_Files_Description.txt,False,,,,,,,
+Jadyn_runs,directory,Jadyn_runs,True,3.0,2.0,1.0,10.0,43.0,Experimental Data;Jadyn_runs_Office,Jadyn_runs.zip
+MATLAB_Files_Description.txt,reference_doc,MATLAB_Files_Description.txt,False,,,,,,,
+NED Data.zip,archive_zip,NED Data.zip,False,,,,,,,
+ReadVelocityCSVs.m,script,ReadVelocityCSVs.m,False,,,,,,,
+Transiet_06192025.zip,archive_zip,Transiet_06192025.zip,False,,,,,,,
+VERIFIED_06192025.zip,archive_zip,VERIFIED_06192025.zip,False,,,,,,,
+Velocity_Files_Description.txt,reference_doc,Velocity_Files_Description.txt,False,,,,,,,
+Wall_tc_Locations.txt,reference_doc,Wall_tc_Locations.txt,False,,,,,,,

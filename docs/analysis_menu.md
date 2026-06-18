@@ -15,6 +15,7 @@ Use this page to decide what to run.
 | Sweep rank/delay/model choices | `dmdc sweep` | Produces dashboards and best-model recommendation. |
 | Select important sensors | `dmdc pod-sensors` | POD/Q-DEIM sparse sensing. |
 | Generate report | `dmdc report` | Writes a LaTeX report from an output folder. |
+| Build paper-support package | `python tools/reporting/build_paper_support_package.py ...` | Collects claim matrix, source CSVs, paper figures, captions, and manifest from saved outputs. |
 
 ## Suggested first three commands
 

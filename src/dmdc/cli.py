@@ -14,6 +14,7 @@ from .data import load_timeseries, load_trajectories
 from .config import (
     apply_config_defaults,
     expand_case_runs,
+    flatten_adaptive_fit_config,
     flatten_fit_config,
     flatten_sensor_selection_config,
     flatten_pod_config,
@@ -114,6 +115,7 @@ from .resources import get_resource_summary, write_resource_summary
 from .archive_benchmark import ArchiveBenchmarkConfig, run_archive_benchmark
 from .hpc_workflows import write_hpc_workflow_plan
 from .command_catalog import render_command_guide, write_command_guide
+from .tamu_data import build_tamu_inventory, build_tamu_validation_catalog, export_tamu_validation_artifacts
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -810,6 +812,35 @@ def build_parser() -> argparse.ArgumentParser:
     campaign.add_argument("--config", required=True, help="Central TOML/JSON/YAML campaign config.")
     campaign.add_argument("--steps", nargs="*", default=None, help="Optional subset/order of steps, e.g. import inspect compare dashboard.")
     campaign.add_argument("--dry-run", action="store_true", help="Write the plan and commands without executing steps.")
+
+    tamu_inventory = sub.add_parser(
+        "tamu-inventory",
+        help="Build a table of contents and case inventory for a TAMU loop data tree.",
+        description="Scans a TAMU loop data folder, records top-level contents, inventories case subfolders, and tolerantly parses malformed meta_data.json files.",
+    )
+    tamu_inventory.add_argument("--root", required=True, help="Root directory such as ../tamu_loop_data/Loop Operational Data.")
+    tamu_inventory.add_argument("--outdir", default="outputs/tamu_inventory", help="Output directory for CSV/Markdown inventory files.")
+
+    tamu_validation_export = sub.add_parser(
+        "tamu-validation-export",
+        help="Export normalized TAMU validation cases and advisory nearest-fit suggestions.",
+        description="Consumes source validation tables and/or a TAMU raw-folder inventory, then writes Fluid-style normalized cases, an optional PHYSOR-style wide CSV, and advisory nearest-fit suggestions.",
+    )
+    tamu_validation_export.add_argument("--inventory-root", default=None, help="Optional raw TAMU root to inventory before matching/export.")
+    tamu_validation_export.add_argument("--inventory-csv", default=None, help="Optional precomputed case_inventory.csv path.")
+    tamu_validation_export.add_argument("--source-tables", nargs="*", default=None, help="Optional wide source validation CSV tables, e.g. salt_validation_source.csv water_validation_source.csv.")
+    tamu_validation_export.add_argument("--outdir", default="outputs/tamu_validation_export", help="Output directory for exported validation artifacts.")
+    tamu_validation_export.add_argument("--profiles", nargs="*", default=["fluid_normalized", "physor_wide"], choices=["fluid_normalized", "physor_wide"], help="Export profiles to write.")
+
+    tamu_validation_catalog = sub.add_parser(
+        "tamu-validation-catalog",
+        help="Classify TAMU raw sources into steady, transient, velocity-profile, and unknown validation buckets.",
+        description="Builds a provenance-heavy raw-data catalog, emits steady/transient/velocity candidate CSVs, generates reproducible velocity-profile plots, and audits repeated validation sources for exact-match drift.",
+    )
+    tamu_validation_catalog.add_argument("--inventory-root", default=None, help="Raw TAMU root to inventory and catalog, e.g. ../tamu_loop_data/Loop Operational Data.")
+    tamu_validation_catalog.add_argument("--inventory-csv", default=None, help="Optional precomputed case_inventory.csv path. Catalog generation still requires --inventory-root for file-level paths.")
+    tamu_validation_catalog.add_argument("--source-tables", nargs="*", default=None, help="Optional repeated wide validation CSV tables used for exact-match consistency checks.")
+    tamu_validation_catalog.add_argument("--outdir", default="outputs/tamu_validation_catalog", help="Output directory for catalog CSV/Markdown/plot artifacts.")
 
     workflow = sub.add_parser("workflow", help="Run one or more configured fit jobs from a config file.")
     workflow.add_argument("--config", required=True, help="JSON/TOML/YAML workflow config file.")
@@ -1532,7 +1563,10 @@ def _flatten_compare_config(cfg: dict) -> dict:
         "dmdc_rank": model.get("dmdc_rank", model.get("rank", cfg.get("dmdc_rank", "full"))),
         "center": bool(pod.get("center", preprocessing.get("center", cfg.get("center", True)))),
         "scale": bool(pod.get("scale", preprocessing.get("scale", cfg.get("scale", False)))),
-        "outdir": compare.get("outdir", output.get("comparison_outdir", output.get("outdir", "outputs/model_comparison"))),
+        "outdir": compare.get(
+            "outdir",
+            output.get("compare_outdir", output.get("comparison_outdir", output.get("outdir", "outputs/model_comparison"))),
+        ),
         "plots": bool(output.get("plots", cfg.get("plots", False))),
         "report": bool(report.get("enabled", cfg.get("report", False))),
     }
@@ -1701,11 +1735,7 @@ def cmd_adaptive_fit(args: argparse.Namespace) -> None:
     """Fit variable-time-step/adaptive DMDc from physical time data."""
     if getattr(args, "config", None):
         cfg = load_config(args.config)
-        # Reuse the familiar fit sections plus optional [adaptive] settings.
-        defaults = flatten_fit_config(cfg)
-        adaptive = cfg.get("adaptive", {}) or {}
-        defaults.update({"alpha": adaptive.get("alpha", cfg.get("alpha", getattr(args, "alpha", 1e-8)))})
-        apply_config_defaults(args, defaults)
+        apply_config_defaults(args, flatten_adaptive_fit_config(cfg))
     if not getattr(args, "data", None) or not getattr(args, "state_cols", None) or not getattr(args, "time_col", None):
         raise ValueError("adaptive-fit requires --data, --state-cols, and --time-col.")
     outdir = ensure_dir(args.outdir or "outputs/adaptive_dmdc")
@@ -2406,12 +2436,96 @@ def cmd_resources(args: argparse.Namespace) -> None:
 def cmd_campaign(args: argparse.Namespace) -> None:
     result = run_campaign(args.config, steps=args.steps, dry_run=bool(args.dry_run))
     print(f"Campaign directory: {result.campaign_dir}")
+    print(f"Campaign group: {result.campaign_group_dir}")
+    print(f"Run ID: {result.run_id}")
     print(f"Steps requested: {', '.join(result.steps_requested)}")
     print(f"Steps run: {', '.join(result.steps_run)}")
     print(f"Succeeded: {result.n_succeeded}; failed: {result.n_failed}; dry-run: {result.dry_run}")
     print(f"Plan: {result.plan_md}")
     print(f"Step index: {result.step_index_csv}")
     print(f"Next steps: {result.next_steps_md}")
+    print(f"Derived config: {result.derived_config_path}")
+    print(f"Run index: {result.run_index_csv}")
+    if not result.dry_run and result.n_failed:
+        raise SystemExit(1)
+
+
+def cmd_tamu_inventory(args: argparse.Namespace) -> None:
+    result = build_tamu_inventory(args.root, args.outdir)
+    print(f"TAMU inventory root: {result.root}")
+    print(f"Inventory output: {result.outdir}")
+    print(f"README: {result.readme_md}")
+    print(f"Executive summary: {result.executive_summary_md}")
+    print(f"Top-level contents: {result.top_level_csv}")
+    print(f"Folder comparison: {result.folder_comparison_csv}")
+    print(f"Subfolder inventory: {result.subfolder_inventory_csv}")
+    print(f"Case inventory: {result.case_inventory_csv}")
+    print(f"Metadata failures: {result.metadata_failures_csv}")
+    print(f"Table of contents: {result.table_of_contents_md}")
+    print(f"Folder summaries: {result.folder_summaries_md}")
+    print(f"Directories indexed: {result.n_directories_indexed}")
+    print(f"Case directories indexed: {result.n_case_dirs}")
+
+
+def cmd_tamu_validation_export(args: argparse.Namespace) -> None:
+    if not getattr(args, "inventory_root", None) and not getattr(args, "inventory_csv", None) and not getattr(args, "source_tables", None):
+        raise ValueError("Provide at least one of --inventory-root, --inventory-csv, or --source-tables.")
+    result = export_tamu_validation_artifacts(
+        args.outdir,
+        inventory_root=getattr(args, "inventory_root", None),
+        inventory_csv=getattr(args, "inventory_csv", None),
+        source_tables=getattr(args, "source_tables", None) or [],
+        export_profiles=getattr(args, "profiles", None) or ["fluid_normalized", "physor_wide"],
+    )
+    print(f"Validation export output: {result.outdir}")
+    if result.inventory_candidates_csv:
+        print(f"Inventory candidates: {result.inventory_candidates_csv}")
+    if result.normalized_cases_csv:
+        print(f"Normalized cases: {result.normalized_cases_csv}")
+    if result.policy_yaml:
+        print(f"Policy: {result.policy_yaml}")
+    if result.physor_wide_csv:
+        print(f"PHYSOR-style wide CSV: {result.physor_wide_csv}")
+    if result.nearest_fit_csv:
+        print(f"Nearest-fit suggestions: {result.nearest_fit_csv}")
+    if result.source_index_csv:
+        print(f"Source index: {result.source_index_csv}")
+    if result.office_workbook_rows_csv:
+        print(f"Office workbook rows: {result.office_workbook_rows_csv}")
+    if result.office_workbook_promotion_csv:
+        print(f"Office workbook promotion decisions: {result.office_workbook_promotion_csv}")
+    print(f"Summary: {result.summary_json}")
+
+
+def cmd_tamu_validation_catalog(args: argparse.Namespace) -> None:
+    if not getattr(args, "inventory_root", None):
+        raise ValueError("Provide --inventory-root for tamu-validation-catalog so file-level provenance can be resolved.")
+    result = build_tamu_validation_catalog(
+        args.outdir,
+        inventory_root=getattr(args, "inventory_root", None),
+        inventory_csv=getattr(args, "inventory_csv", None),
+        source_tables=getattr(args, "source_tables", None) or [],
+    )
+    print(f"Validation catalog output: {result.outdir}")
+    print(f"Catalog CSV: {result.validation_catalog_csv}")
+    print(f"Steady sensor candidates: {result.steady_sensor_csv}")
+    print(f"Transient sensor candidates: {result.transient_sensor_csv}")
+    print(f"Steady velocity candidates: {result.steady_velocity_csv}")
+    print(f"Unknown/not-yet-interpretable: {result.unknown_csv}")
+    print(f"Source provenance index: {result.source_provenance_index_csv}")
+    if result.velocity_plot_index_csv:
+        print(f"Velocity plot index: {result.velocity_plot_index_csv}")
+    if result.consistency_report_csv:
+        print(f"Consistency report: {result.consistency_report_csv}")
+    if result.consistency_summary_md:
+        print(f"Consistency summary: {result.consistency_summary_md}")
+    if result.discrepancies_only_csv:
+        print(f"Discrepancies only: {result.discrepancies_only_csv}")
+    if result.office_workbook_rows_csv:
+        print(f"Office workbook rows: {result.office_workbook_rows_csv}")
+    if result.office_workbook_promotion_csv:
+        print(f"Office workbook promotion decisions: {result.office_workbook_promotion_csv}")
+    print(f"Summary: {result.summary_json}")
 
 
 def cmd_workflow(args: argparse.Namespace) -> None:
@@ -2536,6 +2650,12 @@ def main(argv: list[str] | None = None) -> None:
         cmd_resources(args)
     elif args.command == "campaign":
         cmd_campaign(args)
+    elif args.command == "tamu-inventory":
+        cmd_tamu_inventory(args)
+    elif args.command == "tamu-validation-export":
+        cmd_tamu_validation_export(args)
+    elif args.command == "tamu-validation-catalog":
+        cmd_tamu_validation_catalog(args)
     elif args.command == "inspect-data":
         cmd_inspect_data(args)
     elif args.command == "resample":

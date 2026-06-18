@@ -1,0 +1,44 @@
+candidate_case_name,recognized_case_name,recognition_basis,case_dir,top_level_folder,case_folder_name,metadata_path,metadata_parse_status,candidate_heater_power_W,candidate_air_flow_Lpm,candidate_test_section_power_W,metadata_temperature_hot_1_C,metadata_temperature_hot_2_C,metadata_temperature_cold_1_2_C,ready_for_validation_export,review_status
+2024_03_13__1,,,2024_03_13/1,2024_03_13,1,2024_03_13/1/meta_data.json,repaired,448.0,41.0,0.0,0.0,0.0,0.0,False,metadata_only
+2024_03_13__2,,,2024_03_13/2,2024_03_13,2,2024_03_13/2/meta_data.json,repaired,448.0,41.0,48.36,0.0,0.0,0.0,False,metadata_only
+2024_03_13__3,,,2024_03_13/3,2024_03_13,3,2024_03_13/3/meta_data.json,repaired,448.0,41.0,95.15,0.0,0.0,0.0,False,metadata_only
+2024_05_04__1,,,2024_05_04/1,2024_05_04,1,2024_05_04/1/meta_data.json,repaired,201.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2024_05_04__2,Salt 1,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/2,2024_05_04,2,2024_05_04/2/meta_data.json,repaired,258.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2024_05_04__3,Salt 2,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/3,2024_05_04,3,2024_05_04/3/meta_data.json,repaired,295.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2024_05_04__4,Salt 3,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/4,2024_05_04,4,2024_05_04/4/meta_data.json,repaired,362.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2024_05_04__5,,,2024_05_04/5,2024_05_04,5,2024_05_04/5/meta_data.json,repaired,410.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2024_05_04__6,Salt 4,collaborator-confirmed 2024_05_04 subfolder mapping,2024_05_04/6,2024_05_04,6,2024_05_04/6/meta_data.json,repaired,395.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2024_05_04__7,,,2024_05_04/7,2024_05_04,7,2024_05_04/7/meta_data.json,repaired,453.0,37.0,44.8,0.0,0.0,0.0,False,metadata_only
+2025_03_19__1,,,2025_03_19/1,2025_03_19,1,2025_03_19/1/meta_data.json,repaired,150.0,100.0,0.0,40.0,0.0,0.0,False,metadata_only
+2025_03_19__2,,,2025_03_19/2,2025_03_19,2,2025_03_19/2/meta_data.json,repaired,150.0,150.0,0.0,40.0,0.0,0.0,False,metadata_only
+2025_03_19__3,,,2025_03_19/3,2025_03_19,3,2025_03_19/3/meta_data.json,repaired,150.0,150.0,0.0,40.0,0.0,0.0,False,metadata_only
+2025_03_19__4,,,2025_03_19/4,2025_03_19,4,2025_03_19/4/meta_data.json,repaired,150.0,200.0,0.0,40.0,0.0,0.0,False,metadata_only
+2025_03_19__5,,,2025_03_19/5,2025_03_19,5,2025_03_19/5/meta_data.json,repaired,150.0,100.0,0.0,60.0,0.0,0.0,False,metadata_only
+2025_03_19__6,,,2025_03_19/6,2025_03_19,6,2025_03_19/6/meta_data.json,repaired,150.0,150.0,0.0,60.0,0.0,0.0,False,metadata_only
+2025_03_19__7,,,2025_03_19/7,2025_03_19,7,2025_03_19/7/meta_data.json,repaired,150.0,200.0,0.0,60.0,0.0,0.0,False,metadata_only
+2025_05_20__1,,,2025_05_20/1,2025_05_20,1,2025_05_20/1/meta_data.json,repaired,328.0,25.0,22.08,180.0,170.0,160.0,False,metadata_only
+2025_05_20__2,,,2025_05_20/2,2025_05_20,2,2025_05_20/2/meta_data.json,repaired,317.0,39.0,22.08,180.0,170.0,160.0,False,metadata_only
+2025_05_20__3,,,2025_05_20/3,2025_05_20,3,2025_05_20/3/meta_data.json,repaired,318.0,57.0,22.08,180.0,170.0,160.0,False,metadata_only
+2025_05_20__4,,,2025_05_20/4,2025_05_20,4,2025_05_20/4/meta_data.json,repaired,325.0,75.0,22.08,180.0,170.0,160.0,False,metadata_only
+2025_06_19__1,,,2025_06_19/1,2025_06_19,1,2025_06_19/1/meta_data.json,repaired,257.0,30.0,9.24,180.0,170.0,160.0,False,metadata_only
+2025_06_19__10,,,2025_06_19/10,2025_06_19,10,2025_06_19/10/meta_data.json,repaired,353.0,35.0,22.8,240.0,200.0,200.0,False,metadata_only
+2025_06_19__11,,,2025_06_19/11,2025_06_19,11,2025_06_19/11/meta_data.json,repaired,401.0,35.0,22.8,240.0,200.0,200.0,False,metadata_only
+2025_06_19__12,,,2025_06_19/12,2025_06_19,12,2025_06_19/12/meta_data.json,repaired,402.0,45.0,22.8,240.0,200.0,200.0,False,metadata_only
+2025_06_19__13,,,2025_06_19/13,2025_06_19,13,2025_06_19/13/meta_data.json,repaired,200.0,35.0,22.8,240.0,250.0,200.0,False,metadata_only
+2025_06_19__14,,,2025_06_19/14,2025_06_19,14,2025_06_19/14/meta_data.json,repaired,200.0,35.0,22.8,240.0,250.0,200.0,False,metadata_only
+2025_06_19__15,,,2025_06_19/15,2025_06_19,15,2025_06_19/15/meta_data.json,repaired,250.0,35.0,22.8,260.0,260.0,190.0,False,metadata_only
+2025_06_19__16,,,2025_06_19/16,2025_06_19,16,2025_06_19/16/meta_data.json,repaired,300.0,35.0,22.8,280.0,280.0,190.0,False,metadata_only
+2025_06_19__17,,,2025_06_19/17,2025_06_19,17,2025_06_19/17/meta_data.json,repaired,300.0,35.0,22.8,300.0,300.0,190.0,False,metadata_only
+2025_06_19__2,,,2025_06_19/2,2025_06_19,2,2025_06_19/2/meta_data.json,repaired,300.0,36.0,22.8,200.0,200.0,200.0,False,metadata_only
+2025_06_19__3,,,2025_06_19/3,2025_06_19,3,2025_06_19/3/meta_data.json,repaired,314.0,36.0,22.8,200.0,200.0,200.0,False,metadata_only
+2025_06_19__4,,,2025_06_19/4,2025_06_19,4,2025_06_19/4/meta_data.json,repaired,345.0,36.0,22.8,200.0,200.0,200.0,False,metadata_only
+2025_06_19__5,,,2025_06_19/5,2025_06_19,5,2025_06_19/5/meta_data.json,repaired,398.0,36.0,22.8,200.0,200.0,200.0,False,metadata_only
+2025_06_19__6,,,2025_06_19/6,2025_06_19,6,2025_06_19/6/meta_data.json,repaired,297.0,35.0,22.8,220.0,200.0,200.0,False,metadata_only
+2025_06_19__7,,,2025_06_19/7,2025_06_19,7,2025_06_19/7/meta_data.json,repaired,353.0,36.0,22.8,220.0,200.0,200.0,False,metadata_only
+2025_06_19__8,,,2025_06_19/8,2025_06_19,8,2025_06_19/8/meta_data.json,repaired,401.0,36.0,22.8,220.0,200.0,200.0,False,metadata_only
+2025_06_19__9,,,2025_06_19/9,2025_06_19,9,2025_06_19/9/meta_data.json,repaired,297.0,36.0,22.8,240.0,200.0,200.0,False,metadata_only
+2025_12_30__1,,,2025_12_30/1,2025_12_30,1,2025_12_30/1/meta_data.json,valid,365.0,22.0,0.0,400.0,180.0,180.0,False,metadata_only
+2025_12_30__2,,,2025_12_30/2,2025_12_30,2,2025_12_30/2/meta_data.json,valid,355.0,21.0,1000.0,400.0,180.0,180.0,False,metadata_only
+2025_12_30__3,,,2025_12_30/3,2025_12_30,3,2025_12_30/3/meta_data.json,valid,430.0,21.0,0.0,400.0,180.0,180.0,False,metadata_only
+2025_12_30__4,,,2025_12_30/4,2025_12_30,4,2025_12_30/4/meta_data.json,valid,428.0,42.0,0.0,400.0,180.0,180.0,False,metadata_only
+2025_12_30__5,,,2025_12_30/5,2025_12_30,5,2025_12_30/5/meta_data.json,valid,426.0,63.0,0.0,400.0,180.0,180.0,False,metadata_only

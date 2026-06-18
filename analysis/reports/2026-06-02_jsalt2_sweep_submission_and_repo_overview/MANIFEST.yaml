@@ -1,0 +1,11 @@
+generated_at: 2026-06-02T11:20:00-05:00
+campaign_id: 2026-06-02_jsalt2_sweep_submission_and_repo_overview
+branch: main
+commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+artifacts:
+  - analysis/reports/2026-06-02_jsalt2_sweep_submission_and_repo_overview/CHECKPOINT.md
+  - docs/repository_capabilities_layout_and_solvers.md
+  - docs/workflows/jsalt2_external_analysis_poc.md
+  - studies/jsalt2_moose_mesh_convergence_poc/README.md
+  - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch
+  - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch

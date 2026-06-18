@@ -1,0 +1,82 @@
+campaign_id: 2026-06-08_ethan_ground_truth_predictive_scope_reset
+generated_at: 2026-06-08T12:24:00-05:00
+task: Ethan ground-truth predictive scope reset with repo-native 2D and 1D study scaffolding plus first actual compare and validate runs
+research_question: >
+  With Ethan CFD treated as the working ground-truth source for the next phase,
+  what predictive study infrastructure is now ready, what is measured today, and
+  what execution steps come next before stronger predictive claims are made?
+repository:
+  branch: main
+  commit: 1808fa8abeaf035a26174334b803f9e725e5352b
+  dirty_worktree: true
+inputs:
+  transient_metrics_csv: ../ethan_runs/reports/2026-06-04_ethan_transient_axial_package/all_salt_transient_timeseries.csv
+  axial_heat_csv: ../ethan_runs/reports/2026-06-04_ethan_transient_axial_package/all_salt_axial_patch_heat_timeseries.csv
+  source_inventory_csv: ../ethan_runs/jadyn_runs/modern_runs/2026-06-01_source_inventory/case_inventory.csv
+  case_metadata_index_csv: ../ethan_runs/reports/2026-06-04_ethan_case_metadata_index/ethan_case_metadata_index.csv
+commands:
+  - python tools/studies/build_ethan_ground_truth_tables.py
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli inspect-data --config studies/ethan_ground_truth_predictive/study_config_2d.toml
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli inspect-data --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config studies/ethan_ground_truth_predictive/study_config_2d.toml --dry-run
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml --dry-run
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli compare --config studies/ethan_ground_truth_predictive/study_config_2d.toml
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli compare --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli validate --config studies/ethan_ground_truth_predictive/study_config_2d.toml
+  - env PYTHONPATH=src .venv/bin/python -m dmdc.cli validate --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+files_inspected:
+  - studies/ethan_ground_truth_predictive/README.md
+  - studies/ethan_ground_truth_predictive/study_config_2d.toml
+  - studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+  - studies/ethan_ground_truth_predictive/scripts/_common.sh
+  - tools/studies/build_ethan_ground_truth_tables.py
+  - .agents/tools/studies/build_ethan_ground_truth_tables.py
+  - outputs/ethan_ground_truth_predictive/2d_inspection/case_quality_dashboard.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_inspection/case_quality_dashboard.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_inspection/warnings.txt
+  - outputs/ethan_ground_truth_predictive/2d_compare/model_comparison.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_compare/model_comparison.csv
+  - outputs/ethan_ground_truth_predictive/2d_validation/validation_summary.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_validation/validation_summary.csv
+outputs:
+  report_dir: analysis/reports/2026-06-08_ethan_ground_truth_predictive_scope_reset
+  reports:
+    - analysis/reports/2026-06-08_ethan_ground_truth_predictive_scope_reset/EXECUTIVE_SUMMARY.md
+    - analysis/reports/2026-06-08_ethan_ground_truth_predictive_scope_reset/NEXT_NEEDED_RUNS.csv
+    - analysis/reports/2026-06-08_ethan_ground_truth_predictive_scope_reset/CHECKPOINT.md
+    - analysis/reports/2026-06-08_ethan_ground_truth_predictive_scope_reset/MANIFEST.yaml
+  campaign_record: analysis/campaigns/2026-06-08_ethan_ground_truth_predictive_scope_reset.yaml
+  study_tables:
+    - data/processed/ethan_ground_truth_predictive_2d.csv
+    - data/processed/ethan_ground_truth_predictive_1d_axial_heat.csv
+    - data/processed/ethan_ground_truth_predictive_manifest.json
+  predictive_outputs:
+    - outputs/ethan_ground_truth_predictive/2d_compare
+    - outputs/ethan_ground_truth_predictive/2d_validation
+    - outputs/ethan_ground_truth_predictive/1d_axial_heat_compare
+    - outputs/ethan_ground_truth_predictive/1d_axial_heat_validation
+key_results:
+  measured:
+    two_d_rows: 22140
+    axial_rows: 20520
+    two_d_cases: 9
+    axial_cases: 9
+    two_d_usable_cases: 9
+    axial_usable_cases: 9
+    one_d_warning_count: 2
+    two_d_best_compare_model: persistence
+    two_d_best_compare_test_rmse: 5.557706183000499
+    one_d_best_compare_model: persistence
+    one_d_best_compare_test_rmse: 4.087636896404323
+    two_d_pod_validate_test_rmse: 156.8483948279097
+    one_d_pod_validate_test_rmse: 17.073730133234395
+  interpretation:
+    - The Ethan predictive study contract is repo-native and now has first actual compare and validate outputs in both lanes.
+    - The current narrow ROM surfaces overfit training cases and fail mainly on the native Salt 2 holdout, while persistence remains the active baseline to beat.
+limitations:
+  - Replay and live forecast runs were not executed in this turn.
+  - The 1D lane is still axial heat only, not a fuller transport-informed axial ROM.
+  - TAMU remains de-scoped from near-term model fitting and has not been promoted into an executed held-out validation package.
+anomalies:
+  - Sandbox Python execution repeatedly hit namespace exhaustion (`bwrap ... ENOSPC`), so several verification and execution commands were rerun outside the sandbox.
+  - `apply_patch` also hit sandbox namespace exhaustion during this implementation, so some report-file updates used shell-based fallback writing.

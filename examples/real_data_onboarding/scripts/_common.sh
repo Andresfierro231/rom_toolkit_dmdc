@@ -13,3 +13,16 @@ if grep -q "TODO_" "$CONFIG"; then
 fi
 
 export PYTHONPATH="${PYTHONPATH:-src}"
+export MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/matplotlib-${USER:-codex}}"
+
+run_dmdc() {
+  if command -v dmdc >/dev/null 2>&1; then
+    dmdc "$@"
+    return
+  fi
+  if [[ -x ".venv/bin/python" ]]; then
+    .venv/bin/python -m dmdc.cli "$@"
+    return
+  fi
+  python -m dmdc.cli "$@"
+}

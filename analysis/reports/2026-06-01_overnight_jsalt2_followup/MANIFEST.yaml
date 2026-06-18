@@ -1,0 +1,55 @@
+campaign_id: 2026-06-01_overnight_jsalt2_followup
+git:
+  repo_root: /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis
+  timestamp_local: 2026-06-01T18:21:41-05:00
+  branch: main
+  commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+  dirty: true
+inputs:
+  input_files:
+    - outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260526T133003Z_5943a549/workflow_outputs/import/jsalt2_moose_mesh_convergence_autonomous_no_h.parquet
+    - outputs/campaigns/jsalt2_moose_mesh_convergence_poc/run_20260525T230237Z_0842b2f6/workflow_outputs/import/jsalt2_moose_mesh_convergence_poc.parquet
+    - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch
+    - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch
+    - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch
+  validation_files: []
+  campaign_config: analysis/campaigns/2026-06-01_overnight_jsalt2_followup.yaml
+commands:
+  - command: bash -n analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch
+    status: passed
+  - command: bash -n analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch
+    status: passed
+  - command: bash -n analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch
+    status: passed
+  - command: ls -la outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260526T133003Z_5943a549/workflow_outputs/import/jsalt2_moose_mesh_convergence_autonomous_no_h.parquet outputs/campaigns/jsalt2_moose_mesh_convergence_poc/run_20260525T230237Z_0842b2f6/workflow_outputs/import/jsalt2_moose_mesh_convergence_poc.parquet
+    status: passed
+  - command: ssh -F /dev/null -o BatchMode=yes login3.ls6.tacc.utexas.edu 'hostname'
+    status: blocked_auth
+  - command: ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 03:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch'
+    status: blocked_auth
+  - command: ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 03:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch'
+    status: blocked_auth
+  - command: ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 03:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch'
+    status: blocked_auth
+scripts_used:
+  - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_no_h_repaired.sbatch
+  - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/jsalt2_sweep_with_h_pair.sbatch
+  - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch
+outputs:
+  report_dir: analysis/reports/2026-06-01_overnight_jsalt2_followup
+  figures: []
+  tables:
+    - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/README.md
+  reports:
+    - analysis/reports/2026-06-01_overnight_jsalt2_followup/CHECKPOINT.md
+    - analysis/reports/2026-06-01_overnight_jsalt2_followup/MANIFEST.yaml
+    - analysis/campaigns/2026-06-01_overnight_jsalt2_followup.yaml
+metrics:
+  repaired_no_h_import_ready: true
+  with_h_import_ready: true
+  sbatch_scripts_syntax_checked: 3
+known_issues:
+  - TACC interactive password/token prompts blocked unattended submission from this session.
+  - No job IDs were returned, so nothing can be claimed as queued yet.
+notes:
+  - The queue is ready to submit as soon as an authenticated TACC login session is available.

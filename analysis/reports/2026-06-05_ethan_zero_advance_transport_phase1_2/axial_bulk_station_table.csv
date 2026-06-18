@@ -1,8 +1,8 @@
 source_id,study_case,sample_time_s,station_name,leg_group,section_progress_0to1,mdot_kg_s,abs_mdot_kg_s,areaAverage_p_rgh_pa,bulk_T_k,latest_processor_time
-val_salt_test_2_coarse_mesh_laminar,Salt 2,4069.0,mdot_pipeleg_lower_05_straight,lower_leg,0.5,-0.013655755579868005,0.013655755579868005,0.5058372630477427,454.7575496018523,4069
-val_salt_test_2_coarse_mesh_laminar,Salt 2,4069.0,mdot_pipeleg_right_02_middle,right_leg,0.5,-0.013655696128703992,0.013655696128703992,4.869750832890784,449.60624529501695,4069
-val_salt_test_2_coarse_mesh_laminar,Salt 2,4069.0,mdot_pipeleg_upper_05_cooler,upper_leg,0.5,-0.013655808603825996,0.013655808603825996,15.568233563326894,454.7366075909891,4069
-val_salt_test_2_coarse_mesh_laminar,Salt 2,4069.0,mdot_pipeleg_left_04_test_section,left_leg,0.5,-0.013655760329647305,0.013655760329647305,-12.573998307152175,459.80573703263394,4069
+val_salt_test_2_coarse_mesh_laminar,Salt 2,8203.0,mdot_pipeleg_lower_05_straight,lower_leg,0.5,-0.013685888885970988,0.013685888885970988,0.4884738038236972,455.1124127657653,8203
+val_salt_test_2_coarse_mesh_laminar,Salt 2,8203.0,mdot_pipeleg_right_02_middle,right_leg,0.5,-0.013685815585301016,0.013685815585301016,4.891988303986075,449.9766976990529,8203
+val_salt_test_2_coarse_mesh_laminar,Salt 2,8203.0,mdot_pipeleg_upper_05_cooler,upper_leg,0.5,-0.013685890988144003,0.013685890988144003,15.641520430785498,455.0887394734611,8203
+val_salt_test_2_coarse_mesh_laminar,Salt 2,8203.0,mdot_pipeleg_left_04_test_section,left_leg,0.5,-0.013685871245800197,0.013685871245800197,-12.530265767375006,460.14671254939583,8203
 viscosity_screening_salt_test_3_jin_coarse_mesh,Salt 3,2514.0,mdot_pipeleg_lower_05_straight,lower_leg,0.5,-0.014924848854549996,0.014924848854549996,1.1491716577829867,462.2741160696352,2514
 viscosity_screening_salt_test_3_jin_coarse_mesh,Salt 3,2514.0,mdot_pipeleg_right_02_middle,right_leg,0.5,-0.014924884735853024,0.014924884735853024,6.650727639260355,456.99026004389077,2514
 viscosity_screening_salt_test_3_jin_coarse_mesh,Salt 3,2514.0,mdot_pipeleg_upper_05_cooler,upper_leg,0.5,-0.014925080776452986,0.014925080776452986,19.408827144251816,462.1768267380764,2514

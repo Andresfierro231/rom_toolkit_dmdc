@@ -1,10 +1,13 @@
 from __future__ import annotations
+from types import SimpleNamespace
 from pathlib import Path
 import json
 import pandas as pd
+import pytest
 
 from dmdc.archive_schema import validate_archive_schema, build_archive_context_index
 from dmdc.campaign import run_campaign
+from dmdc import cli as cli_module
 from dmdc.cli import main
 from dmdc.live_archive import LiveArchiveConfig, archive_live_run
 from dmdc.model_registry import register_model, promote_model, resolve_model, read_registry_index
@@ -66,14 +69,96 @@ comparison_outdir = "{tmp_path / 'compare'}"
     result = run_campaign(cfg, dry_run=True)
     assert Path(result.plan_md).exists()
     assert Path(result.step_index_csv).exists()
+    assert Path(result.derived_config_path).exists()
+    assert Path(result.run_index_csv).exists()
+    assert Path(result.campaign_group_dir).exists()
+    assert Path(result.campaign_dir).parent == Path(result.campaign_group_dir)
     assert result.steps_requested == ["inspect", "compare"]
 
 
+def test_campaign_runs_are_unique_and_indexed(tmp_path: Path):
+    cfg = tmp_path / "campaign.toml"
+    cfg.write_text(
+        f'''
+[campaign]
+name = "demo"
+root = "{tmp_path / 'campaigns'}"
+steps = ["inspect"]
+[execution]
+mode = "local"
+[data]
+path = "data/example_multicase_timeseries.csv"
+case_col = "case_id"
+state_cols = ["x1", "x2"]
+input_cols = ["u1"]
+time_col = "time"
+[output]
+inspection_outdir = "{tmp_path / 'inspection'}"
+''',
+        encoding="utf-8",
+    )
+    first = run_campaign(cfg, dry_run=True)
+    second = run_campaign(cfg, dry_run=True)
+    assert first.run_id != second.run_id
+    assert Path(first.campaign_dir) != Path(second.campaign_dir)
+    run_index = pd.read_csv(second.run_index_csv)
+    assert len(run_index) == 2
+    latest = (Path(second.campaign_group_dir) / "latest_run.txt").read_text(encoding="utf-8").strip()
+    assert latest == second.campaign_dir
+
+
 def test_new_cli_help_commands(capsys):
-    for command in ["model-register", "model-list", "model-promote", "model-resolve", "validate-archive-schema", "archive-context", "resources", "campaign"]:
+    for command in ["model-register", "model-list", "model-promote", "model-resolve", "validate-archive-schema", "archive-context", "resources", "campaign", "tamu-inventory", "tamu-validation-export"]:
         try:
             main([command, "--help"])
         except SystemExit as exc:
             assert exc.code == 0
     out = capsys.readouterr().out
     assert "model" in out.lower() or "campaign" in out.lower()
+
+
+def test_campaign_cli_raises_nonzero_exit_on_failed_run(monkeypatch, tmp_path: Path, capsys):
+    result = SimpleNamespace(
+        campaign_dir=str(tmp_path / "campaign"),
+        campaign_group_dir=str(tmp_path / "campaigns"),
+        run_id="run_demo",
+        steps_requested=["inspect"],
+        steps_run=[],
+        n_succeeded=0,
+        n_failed=1,
+        dry_run=False,
+        step_index_csv=str(tmp_path / "campaign" / "campaign_step_index.csv"),
+        plan_md=str(tmp_path / "campaign" / "campaign_plan.md"),
+        next_steps_md=str(tmp_path / "campaign" / "next_steps.md"),
+        derived_config_path=str(tmp_path / "campaign" / "config.toml"),
+        run_index_csv=str(tmp_path / "campaigns" / "campaign_runs.csv"),
+    )
+    monkeypatch.setattr(cli_module, "run_campaign", lambda config, steps=None, dry_run=False: result)
+    with pytest.raises(SystemExit) as exc:
+        main(["campaign", "--config", str(tmp_path / "study.toml")])
+    assert exc.value.code == 1
+    out = capsys.readouterr().out
+    assert "failed: 1" in out
+
+
+def test_campaign_cli_dry_run_does_not_raise_on_zero_failures(monkeypatch, tmp_path: Path, capsys):
+    result = SimpleNamespace(
+        campaign_dir=str(tmp_path / "campaign"),
+        campaign_group_dir=str(tmp_path / "campaigns"),
+        run_id="run_demo",
+        steps_requested=["inspect"],
+        steps_run=["inspect"],
+        n_succeeded=0,
+        n_failed=0,
+        dry_run=True,
+        step_index_csv=str(tmp_path / "campaign" / "campaign_step_index.csv"),
+        plan_md=str(tmp_path / "campaign" / "campaign_plan.md"),
+        next_steps_md=str(tmp_path / "campaign" / "next_steps.md"),
+        derived_config_path=str(tmp_path / "campaign" / "config.toml"),
+        run_index_csv=str(tmp_path / "campaigns" / "campaign_runs.csv"),
+    )
+    monkeypatch.setattr(cli_module, "run_campaign", lambda config, steps=None, dry_run=False: result)
+    main(["campaign", "--config", str(tmp_path / "study.toml"), "--dry-run"])
+    out = capsys.readouterr().out
+    assert "dry-run: True" in out
+    assert "Plan: " in out

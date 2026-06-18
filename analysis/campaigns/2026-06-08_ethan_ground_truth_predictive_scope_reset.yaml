@@ -1,0 +1,67 @@
+campaign_id: 2026-06-08_ethan_ground_truth_predictive_scope_reset
+created_at_local: 2026-06-08T12:24:00-05:00
+name: ethan_ground_truth_predictive_scope_reset
+research_question: >
+  With Ethan CFD treated as the working ground-truth source for the next phase,
+  what repo-native 2D and 1D predictive workflows are now in place, what is the
+  immediate execution order, and what remains required before TAMU can serve as
+  a true unseen-case validation story?
+status: partially_executed
+input_files:
+  - studies/ethan_ground_truth_predictive/study_config_2d.toml
+  - studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+  - studies/ethan_ground_truth_predictive/README.md
+  - tools/studies/build_ethan_ground_truth_tables.py
+  - ../ethan_runs/reports/2026-06-04_ethan_transient_axial_package/all_salt_transient_timeseries.csv
+  - ../ethan_runs/reports/2026-06-04_ethan_transient_axial_package/all_salt_axial_patch_heat_timeseries.csv
+  - ../ethan_runs/jadyn_runs/modern_runs/2026-06-01_source_inventory/case_inventory.csv
+  - ../ethan_runs/reports/2026-06-04_ethan_case_metadata_index/ethan_case_metadata_index.csv
+validation_files:
+  - outputs/ethan_ground_truth_predictive/2d_inspection/case_quality_dashboard.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_inspection/case_quality_dashboard.csv
+  - outputs/ethan_ground_truth_predictive/2d_compare/model_comparison.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_compare/model_comparison.csv
+  - outputs/ethan_ground_truth_predictive/2d_validation/validation_summary.csv
+  - outputs/ethan_ground_truth_predictive/1d_axial_heat_validation/validation_summary.csv
+run_plan:
+  description: >
+    Stand up an Ethan-only predictive program with a repo-native canonical-table
+    builder, a 2D ROM lane, and a 1D axial heat lane, then execute inspect,
+    compare, and validate before any replay work.
+  parameters:
+    program_assumption: Ethan CFD is the working ground truth for the next few months
+    lane_2d_config: studies/ethan_ground_truth_predictive/study_config_2d.toml
+    lane_1d_config: studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+    canonical_manifest: data/processed/ethan_ground_truth_predictive_manifest.json
+    case_count_per_lane: 9
+  planned_runs:
+    - python tools/studies/build_ethan_ground_truth_tables.py
+    - env PYTHONPATH=src .venv/bin/python -m dmdc.cli inspect-data --config studies/ethan_ground_truth_predictive/study_config_2d.toml
+    - env PYTHONPATH=src .venv/bin/python -m dmdc.cli inspect-data --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+    - env PYTHONPATH=src .venv/bin/python -m dmdc.cli compare --config studies/ethan_ground_truth_predictive/study_config_2d.toml
+    - env PYTHONPATH=src .venv/bin/python -m dmdc.cli compare --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+    - env PYTHONPATH=src .venv/bin/python -m dmdc.cli validate --config studies/ethan_ground_truth_predictive/study_config_2d.toml
+    - env PYTHONPATH=src .venv/bin/python -m dmdc.cli validate --config studies/ethan_ground_truth_predictive/study_config_1d_axial_heat.toml
+analysis:
+  metrics:
+    - 2D canonical table rows = 22140
+    - 1D axial heat canonical table rows = 20520
+    - 2D usable cases = 9 of 9
+    - 1D usable cases = 9 of 9
+    - 2D best held-out compare model = persistence with test RMSE 5.557706183000499
+    - 1D best held-out compare model = persistence with test RMSE 4.087636896404323
+    - 2D current pod_dmdc validate test RMSE = 156.8483948279097
+    - 1D current pod_dmdc validate test RMSE = 17.073730133234395
+  figures: []
+  tables:
+    - data/processed/ethan_ground_truth_predictive_manifest.json
+    - outputs/ethan_ground_truth_predictive/2d_inspection/case_quality_dashboard.csv
+    - outputs/ethan_ground_truth_predictive/1d_axial_heat_inspection/case_quality_dashboard.csv
+    - outputs/ethan_ground_truth_predictive/2d_compare/model_comparison.csv
+    - outputs/ethan_ground_truth_predictive/1d_axial_heat_compare/model_comparison.csv
+    - outputs/ethan_ground_truth_predictive/2d_validation/validation_summary.csv
+    - outputs/ethan_ground_truth_predictive/1d_axial_heat_validation/validation_summary.csv
+notes:
+  - TAMU is explicitly de-scoped from near-term model-development gating and retained only as a future external-check track.
+  - The current 1D lane is axial heat only; a fuller axial temperature and transport story still depends on the zero-advance extraction repair.
+  - The current narrow Ethan ROM surfaces do not beat persistence on the explicit held-out split; the next work should target the native Salt 2 generalization gap rather than replay.

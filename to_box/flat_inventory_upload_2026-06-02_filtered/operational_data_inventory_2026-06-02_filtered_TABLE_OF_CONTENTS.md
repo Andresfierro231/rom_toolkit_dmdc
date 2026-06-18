@@ -1,0 +1,99 @@
+# TAMU Loop Data Table of Contents
+
+Root: `../tamu_box_loop_data/Loop Operational Data`
+
+## Root Items
+
+- `09222025.zip`: archive_zip
+- `2024_03_13/`: directory; immediate subdirs=3, direct files=1, recursive files=19
+  - `2024_03_13/1/`: case-like folder; direct files=6, recursive files=6
+  - `2024_03_13/2/`: case-like folder; direct files=6, recursive files=6
+  - `2024_03_13/3/`: case-like folder; direct files=6, recursive files=6
+  - `2024_03_13/TestFile03132024.txt`: file
+- `2024_05_04/`: directory; immediate subdirs=7, direct files=1, recursive files=43
+  - `2024_05_04/1/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/2/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/3/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/4/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/5/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/6/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/7/`: case-like folder; direct files=6, recursive files=6
+  - `2024_05_04/TestFile05042024.txt`: file
+- `2024_09_30/`: directory; immediate subdirs=0, direct files=11, recursive files=11
+  - `2024_09_30/09302024_NC1_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC2_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC3_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC4_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC5_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC6_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC7_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC8_TransientWorkspace.mat`: file
+  - `2024_09_30/09302024_NC9_TransientWorkspace.mat`: file
+  - `2024_09_30/Bubble Data.xlsx`: file
+  - `2024_09_30/TestFile09302024.txt`: file
+- `2025_01_01_(ExampleFolder)/`: directory; immediate subdirs=2, direct files=1, recursive files=13
+  - `2025_01_01_(ExampleFolder)/0001/`: case-like folder; direct files=6, recursive files=6
+  - `2025_01_01_(ExampleFolder)/0002/`: case-like folder; direct files=6, recursive files=6
+  - `2025_01_01_(ExampleFolder)/Notes.txt`: file
+- `2025_03_19/`: directory; immediate subdirs=7, direct files=1, recursive files=43
+  - `2025_03_19/1/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/2/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/3/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/4/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/5/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/6/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/7/`: case-like folder; direct files=6, recursive files=6
+  - `2025_03_19/03192025_Water1.txt`: file
+- `2025_05_20/`: directory; immediate subdirs=4, direct files=1, recursive files=25
+  - `2025_05_20/1/`: case-like folder; direct files=6, recursive files=6
+  - `2025_05_20/2/`: case-like folder; direct files=6, recursive files=6
+  - `2025_05_20/3/`: case-like folder; direct files=6, recursive files=6
+  - `2025_05_20/4/`: case-like folder; direct files=6, recursive files=6
+  - `2025_05_20/TestFile05202025.txt`: file
+- `2025_06_19/`: directory; immediate subdirs=17, direct files=5, recursive files=124
+  - `2025_06_19/1/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/10/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/11/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/12/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/13/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/14/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/15/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/16/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/17/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/2/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/3/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/4/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/5/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/6/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/7/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/8/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/9/`: case-like folder; direct files=7, recursive files=7
+  - `2025_06_19/PIVuncertainty_Mag.csv`: file
+  - `2025_06_19/PIVuncertainty_U.csv`: file
+  - `2025_06_19/PIVuncertainty_V.csv`: file
+  - `2025_06_19/Summaries.txt`: file
+  - `2025_06_19/TestFile06192025.txt`: file
+- `2025_12_30/`: directory; immediate subdirs=5, direct files=1, recursive files=11
+  - `2025_12_30/1/`: case-like folder; direct files=2, recursive files=2
+  - `2025_12_30/2/`: case-like folder; direct files=2, recursive files=2
+  - `2025_12_30/3/`: case-like folder; direct files=2, recursive files=2
+  - `2025_12_30/4/`: case-like folder; direct files=2, recursive files=2
+  - `2025_12_30/5/`: case-like folder; direct files=2, recursive files=2
+  - `2025_12_30/TestFile12302025.txt`: file
+- `FiberOptic_File_Description.txt`: reference_doc
+- `FullTransient_03132024.zip`: archive_zip
+- `FullTransient_03192025.zip`: archive_zip
+- `FullTransient_05042024.zip`: archive_zip
+- `FullTransient_05202025.zip`: archive_zip
+- `JSON_Files_Description.txt`: reference_doc
+- `Jadyn_runs/`: directory; immediate subdirs=2, direct files=1, recursive files=39
+  - `Jadyn_runs/Experimental Data/`: directory; direct files=1, recursive files=33
+  - `Jadyn_runs/Jadyn_runs_Office/`: directory; direct files=5, recursive files=5
+  - `Jadyn_runs/Jadyn_runs.zip`: file
+- `MATLAB_Files_Description.txt`: reference_doc
+- `NED Data.zip`: archive_zip
+- `ReadVelocityCSVs.m`: script
+- `Transiet_06192025.zip`: archive_zip
+- `VERIFIED_06192025.zip`: archive_zip
+- `Velocity_Files_Description.txt`: reference_doc
+- `Wall_tc_Locations.txt`: reference_doc

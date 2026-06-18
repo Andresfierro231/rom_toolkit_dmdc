@@ -40,6 +40,40 @@ def test_adaptive_fit_cli_multicase_nonuniform(tmp_path: Path) -> None:
     assert (out / "provenance.json").exists()
 
 
+def test_adaptive_fit_config_uses_adaptive_outdir(tmp_path: Path) -> None:
+    rows = []
+    for case_id, rate in [("a", -0.2), ("b", -0.35)]:
+        t = np.array([0.0, 0.1, 0.27, 0.55, 1.0])
+        x = np.exp(rate * t)
+        for ti, xi in zip(t, x):
+            rows.append({"case_id": case_id, "time": ti, "x1": xi})
+    data = tmp_path / "nonuniform.csv"
+    out = tmp_path / "adaptive_out"
+    config = tmp_path / "adaptive.toml"
+    pd.DataFrame(rows).to_csv(data, index=False)
+    config.write_text(
+        f'''
+[data]
+path = "{data}"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["x1"]
+input_cols = []
+
+[adaptive]
+alpha = 1.0e-8
+
+[output]
+adaptive_outdir = "{out}"
+'''.strip(),
+        encoding="utf-8",
+    )
+    main(["adaptive-fit", "--config", str(config)])
+    assert (out / "adaptive_dmdc_summary.json").exists()
+    assert (out / "adaptive_rollout_predictions.csv").exists()
+    assert (out / "provenance.json").exists()
+
+
 def test_compare_supports_adaptive_dmdc(tmp_path: Path) -> None:
     rows = []
     for case_id, rate in [("train", -0.2), ("test", -0.22)]:

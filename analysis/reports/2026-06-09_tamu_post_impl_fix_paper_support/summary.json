@@ -1,0 +1,10 @@
+{
+  "export_dir": "outputs/tamu_validation_export_20260609_post_impl_fix",
+  "catalog_dir": "outputs/tamu_validation_catalog_20260609_post_impl_fix",
+  "outdir": "analysis/reports/2026-06-09_tamu_post_impl_fix_paper_support",
+  "figures": [
+    "tamu_repeated_source_coverage",
+    "tamu_single_phase_workbook_mismatch_counts",
+    "tamu_catalog_bucket_counts_post_impl_fix"
+  ]
+}

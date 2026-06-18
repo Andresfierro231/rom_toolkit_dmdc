@@ -1,0 +1,141 @@
+{
+  "campaign_id": "2026-05-25_overnight_tamu_jsalt2_queue",
+  "created_at_local": "2026-05-25T18:03:02-05:00",
+  "research_question": "What should run overnight to preserve the new TAMU workflow outputs, rerun the main JSALT2 campaign under the append-only layout, and answer the next JSALT2 modeling questions before tomorrow?",
+  "git": {
+    "repo_root": "/scratch/09748/andresfierro231/projects_scratch/dmdc-analysis",
+    "timestamp_local": "2026-05-25T18:03:02-05:00",
+    "branch": "main",
+    "commit": "93d9e59391f1ce8de3472d55f1e316723e976998",
+    "commit_short": "93d9e59",
+    "dirty": true
+  },
+  "inputs": {
+    "input_files": [
+      "studies/tamu_loop_data_onboarding/study_config.toml",
+      "studies/jsalt2_moose_mesh_convergence_poc/study_config.toml",
+      "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_adaptive_with_h.toml",
+      "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_autonomous_no_h.toml",
+      "../tamu_loop_data_25_mayo/Loop Operational Data",
+      "../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs",
+      "../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv",
+      "../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv"
+    ],
+    "validation_files": [
+      "outputs/tamu_validation_export/validation_cases.csv",
+      "outputs/tamu_validation_export/validation_data.csv",
+      "outputs/tamu_validation_export/nearest_fit_suggestions.csv"
+    ],
+    "campaign_config": "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue.yaml"
+  },
+  "commands": [
+    {
+      "command": "env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml --dry-run",
+      "status": "recorded"
+    },
+    {
+      "command": "env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_adaptive_with_h.toml --dry-run",
+      "status": "recorded"
+    },
+    {
+      "command": "env PYTHONPATH=src .venv/bin/python -m dmdc.cli campaign --config analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/configs/jsalt2_autonomous_no_h.toml --dry-run",
+      "status": "recorded"
+    },
+    {
+      "command": "ssh -F /dev/null -o BatchMode=yes login3.ls6.tacc.utexas.edu 'hostname'",
+      "status": "recorded"
+    },
+    {
+      "command": "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 01:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/tamu_inventory_refresh.sbatch'",
+      "status": "submitted",
+      "job_id": "3185496"
+    },
+    {
+      "command": "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 01:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/full_pytest_regression.sbatch'",
+      "status": "submitted",
+      "job_id": "3185497"
+    },
+    {
+      "command": "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 04:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_autonomous_no_h.sbatch'",
+      "status": "submitted",
+      "job_id": "3185498"
+    },
+    {
+      "command": "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 04:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_current_campaign.sbatch'",
+      "status": "submitted",
+      "job_id": "3185499"
+    },
+    {
+      "command": "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 04:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_adaptive_with_h.sbatch'",
+      "status": "submitted",
+      "job_id": "3185500"
+    },
+    {
+      "command": "ssh -F /dev/null login3.ls6.tacc.utexas.edu 'sbatch -A ASC23046 -t 01:00:00 --parsable /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis/analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/tamu_validation_export_refresh.sbatch'",
+      "status": "submitted",
+      "job_id": "3185501"
+    },
+    {
+      "command": "sacct -j 3185496,3185497,3185498,3185499,3185500,3185501 --format=JobID,JobName%24,State,Elapsed,ExitCode -P",
+      "status": "recorded"
+    },
+    {
+      "command": "env PYTHONPATH=src .venv/bin/python -m dmdc.cli inspect-data --config outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260525T230234Z_166e14b8/config/campaign_config.derived.json",
+      "status": "recorded_failure"
+    }
+  ],
+  "scripts_used": [
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/tamu_inventory_refresh.sbatch",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/tamu_validation_export_refresh.sbatch",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_current_campaign.sbatch",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_adaptive_with_h.sbatch",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/jsalt2_autonomous_no_h.sbatch",
+    "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/jobs/full_pytest_regression.sbatch"
+  ],
+  "outputs": {
+    "report_dir": "analysis/reports/2026-05-25_overnight_tamu_jsalt2_queue",
+    "figures": [],
+    "tables": [
+      "outputs/tamu_inventory_overnight_20260525/case_inventory.csv",
+      "outputs/tamu_validation_export_overnight_20260525/validation_cases.csv",
+      "outputs/tamu_validation_export_overnight_20260525/validation_data.csv",
+      "outputs/tamu_validation_export_overnight_20260525/nearest_fit_suggestions.csv",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_poc/run_20260525T230237Z_0842b2f6/workflow_outputs/compare/model_comparison.csv",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_adaptive_with_h/run_20260525T230237Z_d2c7a1f2/workflow_outputs/compare/model_comparison.csv",
+      "outputs/campaigns/jsalt2_moose_mesh_convergence_autonomous_no_h/run_20260525T230234Z_166e14b8/campaign_step_index.csv"
+    ],
+    "reports": [
+      "analysis/reports/2026-05-25_overnight_tamu_jsalt2_queue/CHECKPOINT.md",
+      "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue/README.md",
+      "analysis/campaigns/2026-05-25_overnight_tamu_jsalt2_queue.yaml"
+    ]
+  },
+  "metrics": {
+    "tamu_inventory_case_rows": 54,
+    "tamu_inventory_metadata_failure_rows": 0,
+    "tamu_normalized_cases": 8,
+    "tamu_nearest_fit_rows": 40,
+    "jsalt2_current_best_model": "pod_dmdc",
+    "jsalt2_current_best_test_rollout_rmse": 0.33081936458561695,
+    "jsalt2_adaptive_with_h_best_model": "pod_dmdc",
+    "jsalt2_adaptive_with_h_best_test_rollout_rmse": 0.33081936458561695,
+    "jsalt2_adaptive_with_h_adaptive_dmdc_test_rollout_rmse": 0.7532141219005815
+  },
+  "known_issues": [
+    "The autonomous/no-h campaign failed at inspect-data with KeyError: 'variance' because the inspect path assumes a non-empty input variance table.",
+    "The outer dmdc campaign command still returned a successful wrapper job to Slurm even though the inspect step failed inside the autonomous variant.",
+    "The overnight queue does not yet capture Slurm stdout/stderr logs in the repo-visible logs directory; the relative #SBATCH log paths did not land under analysis/campaigns/... as intended."
+  ],
+  "notes": [
+    "All six jobs were submitted from login3.ls6.tacc.utexas.edu to NuclearEnergy under ASC23046.",
+    "By the end of this checkpoint, sacct showed all six job wrappers completed with exit code 0:0.",
+    "Only the autonomous/no-h JSALT2 variant requires follow-up because the campaign halted at inspect before adaptive_fit/pod_dmdc/compare."
+  ],
+  "next_actions": [
+    "Inspect outputs/tamu_validation_export_overnight_20260525/nearest_fit_suggestions.csv and inventory_validation_candidates.csv to choose real validation cases.",
+    "Compare the overnight TAMU export with the daytime outputs to confirm no unexpected drift.",
+    "Fix the inspect-data empty-input bug in src/dmdc/resampling.py so autonomous studies with input_cols = [] do not crash.",
+    "Fix dmdc campaign exit semantics so a failed step propagates a non-zero exit code to batch systems.",
+    "Inspect the successful JSALT2 compare outputs and decide whether adaptive_dmdc with h adds enough value to keep h as an input."
+  ]
+}

@@ -12,6 +12,7 @@ Use these files as the main run-time sources of truth:
 - `configs/templates/central_campaign_config.toml`
 - `configs/templates/central_study_config.toml`
 - `examples/real_data_onboarding/study_config.toml`
+- `studies/jsalt2_moose_mesh_convergence_poc/study_config.toml`
 - `scripts/workflows/run_campaign_local.sh`
 - `src/dmdc/cli.py`
 - `src/dmdc/campaign.py`
@@ -24,6 +25,11 @@ dmdc campaign --config studies/<study>/study_config.toml --steps import inspect 
 ```
 
 The `dmdc campaign` outputs live under `outputs/campaigns/<campaign_name>/` and record the plan, step index, next steps, and resource summary.
+
+For the current external-analysis proof-of-concept, also read:
+
+- `docs/workflows/jsalt2_external_analysis_poc.md`
+- `studies/jsalt2_moose_mesh_convergence_poc/README.md`
 
 ## Root research workflow wrappers
 
@@ -67,10 +73,12 @@ python -m dmdc.cli campaign \
 - `analysis/campaigns/`: provenance-first YAML campaign records
 - `analysis/reports/`: checkpoints, manifests, figures, tables, and report notes
 - `tools/`: root wrappers for the generic provenance and reporting utilities
+- `.agents/tools/`: canonical implementations behind the root wrappers
 
 ## Dry-run and safety policy
 
 - Prefer `--dry-run` for campaign planning before large or expensive runs.
 - Treat HPC plans and Slurm templates as incomplete until a user fills in cluster-specific fields.
 - Use example datasets for smoke tests when real data or credentials are unavailable.
+- Use the JSALT2 POC study as the concrete example for external folder import into `dmdc`.
 - Record any unverified steps explicitly in `MANIFEST.yaml` and `CHECKPOINT.md`.

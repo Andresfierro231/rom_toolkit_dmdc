@@ -1,0 +1,5 @@
+candidate_bucket,count,bucket_label
+steady_sensor_candidates,2,Steady sensor
+steady_velocity_profile_candidates,47,Velocity profile
+transient_sensor_candidates,69,Transient sensor
+unknown_or_not_yet_interpretable,30,Unknown

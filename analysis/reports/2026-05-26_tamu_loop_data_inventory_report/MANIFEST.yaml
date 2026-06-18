@@ -1,0 +1,50 @@
+campaign_id: 2026-05-26_tamu_loop_data_inventory_report
+created_at_local: 2026-05-26T08:24:40-05:00
+research_question: >
+  What is present under each folder and subfolder of the visible TAMU loop-data
+  download, and can the repo produce a reusable high-detail report set for it?
+git:
+  repo_root: /scratch/09748/andresfierro231/projects_scratch/dmdc-analysis
+  branch: main
+  commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+  commit_short: 93d9e59
+  dirty: true
+inputs:
+  input_files:
+    - src/dmdc/tamu_data.py
+    - src/dmdc/cli.py
+    - ../tamu_loop_data_25_mayo/Loop Operational Data
+commands:
+  - command: ls -d ../tamu_loop_data*
+    status: passed
+  - command: env PYTHONPATH=src .venv/bin/python -m pytest tests/test_tamu_inventory_and_validation.py tests/test_tamu_study_workflow.py
+    status: passed
+  - command: env PYTHONPATH=src .venv/bin/python -m dmdc.cli tamu-inventory --root ../tamu_loop_data_25_mayo/Loop Operational Data --outdir outputs/tamu_inventory_20260526_detailed_v2
+    status: passed
+outputs:
+  report_dir: analysis/reports/2026-05-26_tamu_loop_data_inventory_report
+  reports:
+    - outputs/tamu_inventory_20260526_detailed_v2/README.md
+    - outputs/tamu_inventory_20260526_detailed_v2/TABLE_OF_CONTENTS.md
+    - outputs/tamu_inventory_20260526_detailed_v2/folder_summaries.md
+    - analysis/reports/2026-05-26_tamu_loop_data_inventory_report/CHECKPOINT.md
+    - analysis/reports/2026-05-26_tamu_loop_data_inventory_report/MANIFEST.yaml
+  tables:
+    - outputs/tamu_inventory_20260526_detailed_v2/top_level_contents.csv
+    - outputs/tamu_inventory_20260526_detailed_v2/subfolder_inventory.csv
+    - outputs/tamu_inventory_20260526_detailed_v2/case_inventory.csv
+    - outputs/tamu_inventory_20260526_detailed_v2/metadata_failures.csv
+metrics:
+  visible_tamu_roots: 1
+  top_level_items: 23
+  directories_indexed: 65
+  case_like_subfolders: 53
+  metadata_failures: 0
+  largest_case_collection_folder: 2025_06_19
+  largest_case_collection_count: 17
+notes:
+  - The enriched tamu-inventory output now includes README.md and subfolder_inventory.csv in addition to the prior TOC and folder summary files.
+  - The raw-case CSV heuristic was tightened to exclude support files such as PIVuncertainty_U.csv from case detection.
+next_actions:
+  - Review the generated markdown reports manually for domain-specific annotation opportunities.
+  - Use the refreshed structural inventory alongside the TAMU validation export artifacts if case promotion work continues.

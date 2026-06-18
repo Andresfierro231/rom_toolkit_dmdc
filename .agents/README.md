@@ -1,13 +1,30 @@
 # Codex Research Workflow Starter Kit
 
-Drop these files into the root of a research/code repository to give Codex a reproducible analysis workflow.
+This repository keeps the agent-facing workflow assets under `.agents/` and
+exposes the reusable command-line entrypoints through root `tools/` wrappers.
 
-## What this kit does
+## Canonical organization
 
-- Gives Codex durable repo rules through `AGENTS.md`.
-- Provides reusable skills under `.agents/skills/`.
-- Adds small Python tools for provenance, campaign scaffolding, runtime rows, manifests, checkpoints, journal entries, tables, and figure manifests.
-- Creates a standard `analysis/` structure for report-ready work.
+| Path | Role | Notes |
+|---|---|---|
+| `.agents/skills/` | Codex skill instructions | Skill discovery should treat this as canonical. |
+| `.agents/tools/` | Canonical research/provenance/reporting utilities | Root `tools/` delegates here one-to-one. |
+| `.agents/docs/workflows/` | Agent-specific workflow contracts and prompts | These support repo adaptation and reporting norms. |
+| `tools/` | Human-facing wrapper entrypoints | Do not duplicate logic here; keep them as thin delegates. |
+| `analysis/` | Generated provenance records and report artifacts | Campaign YAMLs, manifests, checkpoints, figures, and tables live here. |
+
+## Main rule
+
+Do not replace the repository's active modeling workflow with custom agent
+scripts. The active workflow stays in the repo's own runtime surface:
+
+- `src/dmdc/`
+- `configs/templates/`
+- `examples/real_data_onboarding/`
+- `scripts/workflows/`
+
+The `.agents/` layer is for durable instructions, provenance tools, and report
+artifacts around that workflow.
 
 ## First command after copying into a repo
 

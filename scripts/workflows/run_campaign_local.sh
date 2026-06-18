@@ -8,9 +8,22 @@ set -euo pipefail
 
 CONFIG=${1:-configs/templates/central_campaign_config.toml}
 shift || true
+export MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/matplotlib-${USER:-codex}}"
 
 if [ "$#" -gt 0 ]; then
-  dmdc campaign --config "$CONFIG" --steps "$@"
+  if command -v dmdc >/dev/null 2>&1; then
+    dmdc campaign --config "$CONFIG" --steps "$@"
+  elif [ -x ".venv/bin/python" ]; then
+    .venv/bin/python -m dmdc.cli campaign --config "$CONFIG" --steps "$@"
+  else
+    python -m dmdc.cli campaign --config "$CONFIG" --steps "$@"
+  fi
 else
-  dmdc campaign --config "$CONFIG"
+  if command -v dmdc >/dev/null 2>&1; then
+    dmdc campaign --config "$CONFIG"
+  elif [ -x ".venv/bin/python" ]; then
+    .venv/bin/python -m dmdc.cli campaign --config "$CONFIG"
+  else
+    python -m dmdc.cli campaign --config "$CONFIG"
+  fi
 fi

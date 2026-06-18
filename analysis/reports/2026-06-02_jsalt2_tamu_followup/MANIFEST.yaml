@@ -1,0 +1,14 @@
+generated_at: 2026-06-02T11:05:00-05:00
+campaign_id: 2026-06-02_jsalt2_tamu_followup
+branch: main
+commit: 93d9e59391f1ce8de3472d55f1e316723e976998
+artifacts:
+  - analysis/reports/2026-06-02_jsalt2_tamu_followup/CHECKPOINT.md
+  - outputs/tamu_inventory_20260602_filtered/README.md
+  - outputs/tamu_validation_export_20260602_filtered/inventory_validation_candidates.csv
+  - outputs/tamu_validation_export_20260602_filtered/nearest_fit_suggestions.csv
+  - outputs/analysis_followups/jsalt2_compare_equiv_with_h_20260602/best_model_recommendation.txt
+  - outputs/analysis_followups/jsalt2_compare_equiv_no_h_20260602/best_model_recommendation.txt
+  - to_box/flat_inventory_upload_2026-06-02_filtered/README.md
+  - to_box/operational_data_inventory_2026-06-02_filtered/README.md
+  - analysis/campaigns/2026-06-01_overnight_jsalt2_followup/jobs/full_pytest_regression.sbatch

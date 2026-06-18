@@ -1,0 +1,76 @@
+# JSALT2 external-analysis proof-of-concept study.
+#
+# Run this from the repository root:
+#   dmdc campaign --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml --dry-run
+#   dmdc campaign --config studies/jsalt2_moose_mesh_convergence_poc/study_config.toml --steps import inspect pod_dmdc compare
+
+[campaign]
+name = "jsalt2_moose_mesh_convergence_poc"
+root = "outputs/campaigns"
+steps = ["import", "inspect", "pod_dmdc", "compare"]
+
+[execution]
+mode = "local"
+max_workers = "auto"
+
+[importer]
+type = "folder"
+source = "../physor2026_andrew/active_development/analysis/collections/jsalt2_moose_mesh_convergence/outputs"
+pattern = "*/*_csv.csv"
+out = "data/processed/jsalt2_moose_mesh_convergence_poc.parquet"
+output_format = "parquet"
+case_from_filename = true
+add_source_file_col = true
+max_files = 11
+strict_parquet = false
+
+[data]
+path = "data/processed/jsalt2_moose_mesh_convergence_poc.parquet"
+time_col = "time"
+case_col = "case_id"
+state_cols = ["TP1", "TP2", "TP3", "TP6", "massFlowRate"]
+measurement_cols = ["TP1", "TP2", "TP3", "TP6", "massFlowRate"]
+input_cols = ["h"]
+
+[state_groups]
+fluid_temperatures = ["TP1", "TP2", "TP3", "TP6"]
+flow = ["massFlowRate"]
+
+[time]
+mode = "adaptive"
+assume_uniform = false
+
+[case_quality]
+min_samples = 20
+min_duration = 0.5
+
+[split]
+strategy = "by_case_fraction"
+train_fraction = 0.75
+
+[pod]
+rank = 0.999
+center = true
+scale = false
+
+[model]
+type = "pod_dmdc"
+dmdc_rank = "full"
+n_delays = 1
+
+[compare]
+models = ["persistence", "mean", "dmdc", "ridge_dmdc", "pod_dmdc"]
+outdir = "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison"
+plots = true
+
+[report]
+enabled = true
+format = "latex"
+compile_pdf = false
+
+[output]
+imported_data = "data/processed/jsalt2_moose_mesh_convergence_poc.parquet"
+inspection_outdir = "outputs/jsalt2_moose_mesh_convergence_poc/inspection"
+pod_dmdc_outdir = "outputs/jsalt2_moose_mesh_convergence_poc/pod_dmdc"
+compare_outdir = "outputs/jsalt2_moose_mesh_convergence_poc/model_comparison"
+plots = true

@@ -1,0 +1,7 @@
+source_label,parsed_case_rows,repeated_source_rows,source_profile,source_table,notes
+Fluid salt,4,4,wide_validation_source,../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/salt_validation_source.csv,Canonical wide validation source table.
+Fluid water,4,4,wide_validation_source,../cfd-modeling-tools/tamu_first_order_model/Fluid/validation_data/water_validation_source.csv,Canonical wide validation source table.
+PHYSOR wide,8,8,wide_validation_source,../physor2026_andrew/Validation_Data/validation_data.csv,Canonical wide validation source table.
+Office single-phase,8,8,jadyn_office_workbook_single_phase,../tamu_box_loop_data/Loop Operational Data/Jadyn_runs/Jadyn_runs_Office/SinglePhaseDataBase.xlsx,single-phase office workbook repeated against canonical Salt/Water steady cases
+Office two-phase,6,0,jadyn_office_workbook_two_phase,../tamu_box_loop_data/Loop Operational Data/Jadyn_runs/Jadyn_runs_Office/TwoPhaseDataBase.xlsx,two-phase office workbook kept as a separate noncanonical case family
+Office velocity,0,0,jadyn_office_velocity_workbook,../tamu_box_loop_data/Loop Operational Data/Jadyn_runs/Jadyn_runs_Office/Full Velocity Profiles.xlsx,Velocity workbook kept in the raw-source catalog; it is not normalized into steady sensor rows.

@@ -1,0 +1,11 @@
+Loop Operational Data/
+.box_sync_state/
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+.env
+.env.*
+*.duckdb
+*.duckdb-wal
+*.log
+__pycache__/

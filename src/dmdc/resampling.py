@@ -326,6 +326,8 @@ def resample_all_cases(
 
 
 def _variance_frame(frame: pd.DataFrame, cols: Sequence[str]) -> pd.DataFrame:
+    if not cols:
+        return pd.DataFrame(columns=["column", "variance", "std", "min", "max"])
     rows = []
     for col in cols:
         values = pd.to_numeric(frame[col], errors="coerce")
